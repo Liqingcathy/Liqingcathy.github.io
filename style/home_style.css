@@ -56,14 +56,17 @@ section .skill-container{
     /* border: 1px solid blue; */
     padding:5%;
     margin: 30px;
+    
 }
 
 section .skill-container .skill{
     /* border: 1px solid rgb(255, 0, 60); */
     width: 50%;
-    /* height: 400px; aligns but overflows*/
     text-align: center;
     padding:20px;
+    /* border:1px solid blue; */
+    height: 400px;
+    overflow: hidden;
 }
 
 section .skill-container .skill span{
@@ -73,7 +76,7 @@ section .skill-container .skill span{
     padding: 0 20px;
     line-height: 2em;
     /* margin: 20px 30px; */
-   
+    
 }
 
 section .project {
@@ -107,6 +110,7 @@ section .project > li {
 section .project img{
     width: 100%;
     height: auto;
+    padding: 5% 0;
 }
 
 /* .project  li  img h4{
