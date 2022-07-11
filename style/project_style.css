@@ -2,6 +2,8 @@
 .project-wrapper h2 {
     /* margin-left: 2em; */
     padding-top: 5%;
+    margin-left: 4em;
+    
 }
 
 .project-flex{
@@ -16,13 +18,13 @@
     width: 90%;
     margin: 0 auto;
     justify-content: center;
-    
+    /* border: 2px solid red; */
 
 }
 
 .project-flex .project {
     /* border: 2px solid rgb(210, 20, 140); */
-    /* width: 45%; */
+    width: 45%;
     height: 100%;
     /* display: block; */
     margin: 20px 20px;
