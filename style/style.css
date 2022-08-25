@@ -1,27 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Red+Hat+Display:wght@300;400;700&family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;1,300;1,400;1,600&family=Source+Sans+Pro&display=swap');
 
 html {
-    font-family: 'Source Code Pro';
+    /* font-family: 'Source Code Pro'; */
     padding: 10px;
-
+    font-family: Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-weight: lighter;
 }
 
 h1 {
-    margin: 30px;
+    margin: 20px;
     padding-top: 5%;
+    font-family: 'Sansita', sans-serif;
+    color:#6A8495;
+}
 
+h2, h3 {
+    font-family: 'Sansita', sans-serif;
+    
 }
 
 section h1 {
     margin-left: 5%;
+    font-family: 'Sansita', sans-serif;
 }
+
 a{
     text-decoration: none;
     color: black;
 }
 
 a:hover{
-    color: #9BAAAE;
+    color: #8ea5b7;
 }
 
 
@@ -47,9 +56,9 @@ a:hover{
     text-decoration: underline;
 }
 
-
-footer > h1{
-    margin-top: 10%;
+footer {
+    background-color: #c2ccce;
+    bottom: 0;
 }
 
 footer .contact {
@@ -57,35 +66,36 @@ footer .contact {
     flex-direction: row; */
     list-style-type: none;
     text-align: center;
-    padding: 30px;
+    /* padding: 20px; */
 }
 
 footer .icons{
     width: 30px;
     height: 30px;
+    opacity: 60%;
     
 }
 
 footer img:hover{
-    opacity: 70%;
+    opacity: 30%;
 }
 
 footer h1 , p{
-    padding: 30px;
+    /* padding: 30px; */
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
-/* mark {
-    background-color:lightgray;
-    color: #715650;
-} */
-
 #email {
-    padding-top: 10px;
+    padding: 10px;
     text-decoration: underline;
 }
 
 ::selection{
     background-color:#9BAAAE;
+}
+
+#copyright {
+    padding-top: 10px;
+    bottom: 0;
 }

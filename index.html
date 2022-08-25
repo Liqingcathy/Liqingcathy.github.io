@@ -6,46 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="/style/style.css" rel="stylesheet" />
   <link href="/style/home_style.css" rel="stylesheet" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/profile.png">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- <link rel="icon" type="image/png" sizes="32x32" href="/assets/profile.png"> -->
+  <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
   <title>Liqing Li</title>
 </head>
 <body>
   <main>
   <nav>
     <ul class="nav-items">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="projects">Projects</a></li>
-      <li><a href="about">About</a></li>
+      <li><h1 class="nav-h1"><a href="index.html">Home</a></h1></li>
+      <li><h1 class="nav-h1"><a href="#project">Projects</a></h1></li>
+      <li><h1 class="nav-h1"><a href="#about">About</a></h1></li>
     </ul>
   </nav>
     <section >
-      <div class="about-content">
-        <div>
-          <img class="profile" src="../assets/profile.png" alt="profile">
-      </div>
-        <div class="profile-text">
+        <div class="profile-text" id="about">
           <h1>Hi, I'm Liqing(lee-ching) Li</h1>
           <p>A customer-centric global digital marketer turned passionate software developer.
             I’m interested in building enterprise software and full-stack web applications to 
             solve problems for customers, enterprises, and communities in business, technology, and for social good.</p>
-          <!-- <div class="additional-info"> -->
+          <div class="additional-info">
             <span class="profession">📍 Seattle</span>
             <span class="profession">👩🏻‍💻 Developer</span>
             <span class="profession">👩‍🎓 Student</span>
-          <!-- </div> -->
           </div>  
         </div>
   </section>
   <section >
-    <h2>Skills</h2>
+    <h2 class="skills-title">Skills</h2>
     <ul class="skill-container">
       <li class="skill">
-        <img class="skill-icon" src="../assets/web.png" alt="web dev">
+        <img class="skill-icon" id="fullstack" src="../assets/fullstack.png" alt="web dev">
         <h3>Full-Stack Web Development</h3>
-        <p>Build frontend and backend 
-          <br> web app and REST APIs 
-          <br> having user experience in mind.
+        <p>Build full-stack/backend 
+          <br>web app  having users <br> experience in mind.
         </p>
           <span>HTML/CSS/JavaScript</span>
           <span>React</span>
@@ -54,21 +48,20 @@
           <span>Postgres</span>  
         </li>
         <li class="skill">
-          <img class="skill-icon" src="../assets/software.png" alt="software">
+          <img class="skill-icon" id="software"  src="../assets/software.png" alt="software">
           <h3>Software Development</h3>
-          <p>I am interested in enterprise 
-            <br> software that solves industrial
-            <br>  and customer problems.
+          <p>I am interested in developing 
+            <br> software that solves technical and business problems.
           </p>
           <span>Java</span>
           <span>C++</span>
           <span>MySQL</span>
           <span>Marven</span>
           <span>SpringBoot</span>
-          <span>Git</span>
+          <span>API</span>
         </li>
         <li class="skill">
-          <img class="skill-icon" src="../assets/marketing.png" alt="marketing">
+          <img class="skill-icon" id="data"  src="../assets/data.png" alt="marketing">
           <h3>Marketing Analysis</h3>
           <p>I loved digging into customer  
             <br> problems and solving with 
@@ -82,28 +75,163 @@
   </section>
 
   <section >
-    <h2>Projects Highlights</h2>
-    <ul class="project">
-      <li >Backend<img src="../assets/projects/tasklist.png" alt="tasklist"/></li>
-      <li >Full-Stack<img src="../assets/projects/ReactFood.png" alt="react food"/></li>
-      <li >Java OOP<img src="../assets/projects/Movie.png" alt="movie recommendation"/></li>
-      <li >Frontend<img src="../assets/projects/landingpage.png" alt="landing page"/></li>
-      <li >Frontend<img src="../assets/projects/whackmole.png" alt="wack mole"/></li>
-      <li >Software<img src="../assets/projects/google.png" alt="google ads"/></li>
+    <h2 id="project">Projects Highlights</h2>
+    <ul class="project" >
+      <li><h3><a href="https://capstone-react-frontend.herokuapp.com/" >Capstone Project: Carbon Emission Web(08/2022)<img src="../assets/projects/carbon.png"/></h3></a>
+        <div class="desc">Integrated Carbon Interface, Google Maps, Directions, and Places APIs to estimate user's vehicle CO2 emission, provide insights, filter and search data from Elasticsearch. <br />
+          <div class="tech-stack">
+            <span><img id="react" src="../assets/projects/react.png" /></span>
+            <span class="tech-lang">React</span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="flask" src="../assets/projects/flask.png" /></span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="python" src="../assets/projects/python.png" /></span>
+            <span class="tech-lang">Python</span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="es" src="../assets/projects/elastic.png" /></span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="restapi" src="../assets/projects/restapi.png" /></span>
+          </div>
+        </div>
+        </li>
+      <li><h3><a href="https://react-inspirational-board.herokuapp.com/">Inspirational Board Group Project(07/2022)<img src="../assets/projects/inspirationboard.png" alt="react food"/></h3></a>
+        <div class="desc">Developed React components and Flask Restfull APIs and collaborated and troubleshot within a group utilizing git environment, standup meeting, and pair programming. <br />
+          <div class="tech-stack">
+            <span><img id="react" src="../assets/projects/react.png" /></span>
+            <span class="tech-lang">React</span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="flask" src="../assets/projects/flask.png" /></span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="python" src="../assets/projects/python.png" /></span>
+            <span class="tech-lang">Python</span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="restapi" src="../assets/projects/restapi.png" /></span>
+          </div>
+        </div>
+      </li>
+      <li><h3><a href="https://github.com/Liqingcathy/task-list-api" >Task List Rest API Backend(06/2022)<img src="../assets/projects/tasklist.png" alt="tasklist"/></h3></a>
+        <div class="desc">Applied Restfull API methods to create, get, update, and delete tasks. Integrated with Postgres SQLAlchemy to store created
+          "Task" and "Goal" models with user input values.<br />
+          <div class="tech-stack">
+            <span><img id="flask" src="../assets/projects/flask.png" /></span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="python" src="../assets/projects/python.png" /></span>
+            <span class="tech-lang">Python</span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="postgres" src="../assets/projects/postgresql.png" /></span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="restapi" src="../assets/projects/restapi.png" /></span>
+          </div>
+        </div>
+      </li>
+      <li><h3>Google Ads Generator Software(11/2021)<img src="../assets/projects/google.png" alt="google ads"/></h3>
+        <div class="desc">
+          Added features and integrated between projects to generate automatic Google Ads server-side software.
+          Reads 1000+ excel data through Java OOP design, Springboot, and Hibernate. <br />
+          <div class="tech-stack">
+            <span><img id="java" src="../assets/projects/java.png" alt="java"/></span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="spring" src="../assets/projects/springboot.png" alt="spring"/></span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="hibernate" src="../assets/projects/hibernate.png" alt="hibernate"/></span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="mysql" src="../assets/projects/mysql.png" alt="sql"/></span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="eclipse" src="../assets/projects/eclipse.png" alt="eclipse"/></span>
+          </div>
+      </li>
+      <li><h3><a href="https://github.com/Liqingcathy/Movie-Recommendation-System">Java OOP Movie Recommendation System(07/2021)<img src="../assets/projects/Movie.png" alt="movie recommendation"/></h3></a>
+        <div class="desc">Prompts users rate movies and recommend movies to users based on calculated similar rating, weighted averages, and 10+ filter interfaces.
+          Reads 4000+ movies and ratings csv files. <br />
+          <div class="tech-stack">
+            <span><img id="java" src="../assets/projects/java.png" alt="java"/></span>
+            <!-- <span class="tech-lang">Java</span> -->
+          </div>
+          <div class="tech-stack">
+            <span><img id="eclipse" src="../assets/projects/eclipse.png" alt="eclipse"/></span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="bluej" src="../assets/projects/bluej.png" alt="duke" /></span>
+          </div>
+        </div>
+      </li>
+      
+   
+      <li><h3><a href="https://github.com/Liqingcathy/FoodOrder-ReactApp">Food Order Web App(06/2021)<img src="../assets/projects/ReactFood.png" alt="react food"/></h3></a>
+        <div class="desc">A food ordering web app allows users to add, delete, and modify orders to/from the shopping cart.
+          Store data in Firebase real-time database by implementing HTTP protocols. <br />
+          <div class="tech-stack">
+            <span><img id="react" src="../assets/projects/react.png" /></span>
+            <span class="tech-lang">React</span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="firebase"  src="../assets/projects/firebase.png" alt="firebase" /></span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="restapi" src="../assets/projects/restapi.png" /></span>
+          </div>
+      </li>
+      <li><h3><a href="https://github.com/Liqingcathy/viewing-party" >Viewing Party(04/2022)<img src="../assets/projects/viewing.jpg" alt="viewing party"/></h3></a>
+        <div class="desc">Creates, adds, deletes, and modifies movie lists to organize and recommend movies to friends using nested dictionary(JSON)/list data structures.<br />
+          <div class="tech-stack">
+            <span><img id="python" src="../assets/projects/python.png" /></span>
+            <span class="tech-lang">Python</span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="json" src="../assets/projects/JSON.png" /></span>
+          </div>
+      </li>
+      <li><h3><a href="https://github.com/Liqingcathy/WhackAMole">Whac-A-Mole Game(07/2021)<img src="../assets/projects/whackmole.png" alt="wack mole"/></h3></a>
+        <div class="desc">Users gain points by whacking each mole as it appears. Press 'Start' and 'Stop' to play/end the game and 'Levelup' the speed. <br/>
+          <div class="tech-stack">
+            <span><img id="htmlcssjs" src="../assets/projects/htmlcssjs.png" alt="html"/></span>
+        </div>
+      </li>
+      <li><h3><a href="https://github.com/Liqingcathy/MEAN-Stack_Social-Network-Web">*Tutorial based- Developer Connector(08/2021)<img src="../assets/projects/devconn.png" alt="wack mole"/></h3></a>
+        <div class="desc">Developed responsive components using React, Store, Reduce concepts. Implemented back-end
+          RESTful APIs and JSON Web Token authentication. <br/> Credit:Udemy "MERN Stack Front To Back Course" <br/>
+          <div class="tech-stack">
+            <span><img id="mongodb" src="../assets/projects/mongodb.png" /></span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="express" src="../assets/projects/express.png" /></span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="react" src="../assets/projects/react.png" /></span>
+            <span class="tech-lang">React</span>
+          </div>
+          <div class="tech-stack">
+            <span><img id="node" src="../assets/projects/nodejs.svg" /></span>
+          </div>
+      </li>
       
     </ul>
     
   </section>
   <footer>
-    <h1>Let's Connect</h1>
     <div class="contact">
+      <h1>Let's Connect</h1>
       <span><a href="https://www.linkedin.com/in/liqingcathy/?locale=en_US" ><img class="icons" src="../assets/linkedin.png" alt="linkedin"></a> </span>
       <span><a href="https://github.com/Liqingcathy"><img class="icons" src="../assets/git.png" alt="github"></a> </span>
       <p id="email">
       <span><a href="mailto:cathy.glc@gmail.com">cathy.glc@gmail.com</a></span>
       </p>
-    </div>
-    <p>Designed 🪴 developed by Liqing Li 🪴 2022</p>
+     <p id="copyright">Designed/developed by Liqing Li 🪴 @2022</p>
+  </div>
   </footer>
 </main>
 </body>

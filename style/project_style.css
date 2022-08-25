@@ -62,7 +62,7 @@
 }
 
 .project-desc .desc{
-    /* border: 1px solid #9BAAAE; */
+    border: 1px solid #9BAAAE;
     text-align: left;
 }
 .tech-stack {
