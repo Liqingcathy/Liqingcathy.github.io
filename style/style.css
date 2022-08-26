@@ -7,12 +7,13 @@ html {
     font-weight: lighter;
 }
 
-h1 {
+h1{
     margin: 20px;
     padding-top: 5%;
     font-family: 'Sansita', sans-serif;
     color:#6A8495;
 }
+
 
 h2, h3 {
     font-family: 'Sansita', sans-serif;

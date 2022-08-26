@@ -1,4 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Lato:ital,wght@0,900;1,700;1,900&family=Libre+Baskerville&family=Montserrat:wght@100;200;400&family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300&family=Red+Hat+Display:wght@300;400;700&family=Sansita&family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;1,300;1,400;1,600&family=Source+Sans+Pro&display=swap');
+/* .nav-items {
+    border: 1px solid red;
+} */
+
+
+.nav-h1 {
+    margin: 0;
+}
 
 .nav-h1 a{
     color: #4D6983;
@@ -96,16 +104,28 @@ section .project {
     padding-bottom: 10%;
 }
 
+.capstone-li {
+    border: 1px solid blue;
+    height: 40%;
+}
 
-section .project > li {
-    text-align: left;
-    color:rgb(9, 9, 9);
-    /* font-size: larger; */
+#project-shot{
     transition: all 2s ease;
     transition-property: all;
     transition-duration: 2s;
     transition-timing-function: ease;
     transition-delay: 0s;
+}
+
+section .project > li {
+    text-align: left;
+    color:rgb(9, 9, 9);
+    /* font-size: larger; */
+    /* transition: all 2s ease;
+    transition-property: all;
+    transition-duration: 2s;
+    transition-timing-function: ease;
+    transition-delay: 0s; */
     padding: 10px;
     margin-top: 30px;
       /* border: 1px solid rgb(255, 0, 60); */
@@ -117,10 +137,13 @@ section .project img{
     padding: 5% 0;
 }
 
-
-section .project > li:hover{
+#project-shot:hover {
     transform: scale(1.1);
 }
+
+/* section .project > li:hover{
+    transform: scale(1.1);
+} */
 
 .project .desc{
     /* border: 1px solid rgb(255, 0, 60); */
@@ -187,4 +210,11 @@ section .project > li:hover{
 
 #fullstack, #software, #data{
     width: 40px;
+}
+
+#heroku, #git {
+    width: 30px;
+    height: 30px;
+    margin-bottom: -30px;
+    margin-left: 10px;
 }
