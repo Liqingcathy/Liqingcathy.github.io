@@ -89,6 +89,15 @@ section .skill-container .skill span{
     text-align: center;
     padding: 0 20px;
     line-height: 2em;
+   
+}
+
+.skill-container .skill span {
+    font-weight: 200;
+}
+
+.skill-container .skill span:hover {
+    background-color: #5d6a74;
 }
 
 
@@ -155,7 +164,6 @@ section .project img{
 
 .tech-stack {
     margin-top: 20px;
-    /* border: 1px solid rgb(197, 193, 193); */
     display: inline-flex;
     /* vertical-align: top; */
     align-items: center;
