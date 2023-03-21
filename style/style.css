@@ -1,15 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Red+Hat+Display:wght@300;400;700&family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;1,300;1,400;1,600&family=Source+Sans+Pro&display=swap');
 
 html {
-    /* font-family: 'Source Code Pro'; */
-    padding: 10px;
     font-family: Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
     font-weight: lighter;
 }
 
 h1{
-    margin: 20px;
     padding-top: 5%;
+    text-align: center;
     font-family: 'Sansita', sans-serif;
     color:#6A8495;
 }
@@ -21,9 +19,9 @@ h2, h3 {
 }
 
 section h1 {
-    margin-left: 5%;
     font-family: 'Sansita', sans-serif;
 }
+
 
 a{
     text-decoration: none;
@@ -49,7 +47,6 @@ a:hover{
     margin: 0 80px;
     font-weight: 400;
     font-size: 1.1rem;
-    /* letter-spacing: .1em; */
 }
 
 .nav-items > li > a:hover{
@@ -59,16 +56,15 @@ a:hover{
 
 footer {
     background-color: #c2ccce;
-    bottom: 0;
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 footer .contact {
-    /* display: flex;
-    flex-direction: row; */
     list-style-type: none;
     text-align: center;
-    /* padding: 20px; */
 }
+
 
 footer .icons{
     width: 30px;
@@ -79,12 +75,6 @@ footer .icons{
 
 footer img:hover{
     opacity: 30%;
-}
-
-footer h1 , p{
-    /* padding: 30px; */
-    text-align: center;
-    /* padding: 20px; */
 }
 
 #email {
@@ -98,5 +88,4 @@ footer h1 , p{
 
 #copyright {
     padding-top: 10px;
-    bottom: 0;
 }
