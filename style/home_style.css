@@ -36,7 +36,7 @@ h2 {
 }
 
 .additional-info {
-    width: 60%;
+    width: 80%;
     margin:auto;
 }
 
@@ -164,7 +164,7 @@ section .project img{
     width: 20px;
 }
 
-#es ,  #postgres, #htmlcssjs, #mongodb {
+#ai, #es, #postgres, #htmlcssjs, #mongodb {
     width: 80px;
 }
 
