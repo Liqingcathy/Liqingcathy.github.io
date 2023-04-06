@@ -48,17 +48,15 @@ h2 {
 }
 
 section .skill-container{
-    height: 100%; /*deals overflow auto*/
+    height: 100%; 
     width: 90%;
     display: flex;
     flex-direction: row;
     list-style-type: none;
     justify-content: center;
     align-items: center;
-    /* border: 1px solid blue; */
     margin: 0 auto;
     margin-top: 40px;
-    
 }
 
 section .skill-container .skill{
@@ -147,9 +145,7 @@ section .project img{
     border-radius: 1.3em;
     padding: 0 10px;
     margin-left: -1em;
-    
 }
-
 
 .tech-stack img {
     margin-top: 5px;
@@ -165,6 +161,10 @@ section .project img{
 
 #python, #react {
     width: 20px;
+}
+
+#redux {
+    width: 50px;
 }
 
 #ai, #es, #postgres, #htmlcssjs, #mongodb {
