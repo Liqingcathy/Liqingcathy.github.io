@@ -126,6 +126,14 @@ section .project img{
     transform: scale(1.1);
 }
 
+.demo-link {
+    color: #8d9da1;
+}
+
+.demo-link:hover {
+    color: #a9b3b5;
+}
+
 .frontend, .backend {
     color: #b2c9d0;
 }
