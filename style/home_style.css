@@ -167,7 +167,7 @@ section .project img{
     width: 40px;
 }
 
-#python, #react {
+#python, #react{
     width: 20px;
 }
 
@@ -196,7 +196,7 @@ section .project img{
     width: 70px;
 }
 
-#restapi, #express, #node {
+#restapi, #express, #node, #htmlcssjs2 {
     width: 60px;
 }
 
