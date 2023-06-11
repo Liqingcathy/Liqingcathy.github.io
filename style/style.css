@@ -37,14 +37,13 @@ a:hover{
     display: flex;
     flex-direction: row;
     list-style-type: none;
-    justify-content: center;
+    justify-content: space-evenly;
     font-weight: bold;
     padding: 10px;
     
 }
 
 .nav-items > li {
-    margin: 0 80px;
     font-weight: 400;
     font-size: 1.1rem;
 }
