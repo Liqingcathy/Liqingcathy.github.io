@@ -16,25 +16,30 @@
   <nav>
     <ul class="nav-items">
       <li><h2 class="nav-h1"><a href="index.html">Home</a></h2></li>
+      <li><h2 class="nav-h1"><a href="#skills">Skills</a></h2></li>
       <li><h2 class="nav-h1"><a href="#project">Projects</a></h2></li>
-      <li><h2 class="nav-h1"><a href="#about">About</a></h2></li>
     </ul>
   </nav>
     <section >
         <div class="profile-text" id="about">
-          <h1>Hi, I'm Liqing(lee-ching) Li - A Passionate Developer</h1>
-          <p>As a former quadrilingual global digital marketer turned polylingual software developer, 
-          I aim to leverage technology for mission-driven businesses and exceptional user experiences.</p>
+          <h1>Hi, I'm Liqing(lee-ching) Li - A Passionate Developer
+            <div class="social-contact">
+              <span><a href="https://www.linkedin.com/in/liqingcathy/?locale=en_US" ><img class="icons" src="../assets/linkedin.png" alt="linkedin"></a> </span>
+              <span><a href="https://github.com/Liqingcathy"><img class="icons" src="../assets/git.png" alt="github"></a> </span></span>
+            </div>
+          </h1> 
+            <p>As a former quadrilingual global digital marketer turned polylingual software developer, 
+            <br/>I aim to leverage technology for mission-driven businesses and exceptional user experiences.</p>
           <div class="additional-info">
             <span class="profession">📍 Greater Seattle Area</span>
             <span class="profession">👩🏻‍💻 Developer</span>
             <span class="profession">👩‍🎓 Recent Graduate(03/2023)</span>
-            <span class="profession">🎓 Seattle University + Ada Developers Academy</span>
+            <span class="profession">🎓 Seattle University | Ada Developers Academy</span>
           </div>  
         </div> 
   </section>
   <section >
-    <h2 class="skills-title">Skills</h2>
+    <h2 id="skills" class="skills-title">Skills</h2>
     <ul class="skill-container">
       <li class="skill">
         <img class="skill-icon" id="fullstack" src="../assets/web.png" alt="web dev">
@@ -75,14 +80,19 @@
 
   <section >
     <h2 id="project">Projects Highlights</h2>
-    <ul class="project" >
-      <li>
+    <div class="filter-container">
+      <button class="filterbtn active" onclick="filterBySkills('all')">All</button>
+      <button class="filterbtn" onclick="filterBySkills('fullstack')">Full-stack</button>
+      <button class="filterbtn" onclick="filterBySkills('hackathon')">Hackathon</button>
+      <button class="filterbtn" onclick="filterBySkills('backend')">Backend</button>
+
+    </div>
+    <ul id="project-ul" class="project" >
+      <li class="filterby hackathon">
       <h3><a class="project-title" >TechTogether Seattle 2023 Hackathon(05/2023)</a> 
         <a href="https://devpost.com/software/think-twice-ebmjlx" ><img class="techtogether" id="project-shot" alt="hackathon" src="../assets/projects/coding.png"/></a></h3>
       <div class="desc"><strong>WINNER of Best Financial Hack with Capital One</strong>: Formed a four-member team and contributed to ideation, backend, API development, database management, and full stack integration. 
-        <a class="project-repo" href="https://devpost.com/software/think-twice-ebmjlx"><strong class="frontend">Hackathon</strong> | 
-        <a class="project-repo" href="https://github.com/ReginaLin2005/think-twice-chrome-extension"><strong class="frontend">Frontend Repo</strong> | </a>
-          <a class="project-repo" href="https://github.com/Liqingcathy/Hackathon-think-twice-backend"><strong class="backend">Backend Repo</strong></a>
+        <a class="project-repo" href="https://devpost.com/software/think-twice-ebmjlx"><strong class="frontend">Hackathon</strong></a>
           <br/>
           <div class="tech-stack">
           <span><img id="htmlcssjs2" src="../assets/projects/htmlcssjs.png" /></span>
@@ -103,7 +113,7 @@
         </div>
       </div>
       </li>
-      <li>
+      <li class="filterby hackathon">
         <h3><a class="project-title" >Seattle AI Hackathon(03/2023)</a> 
           <a href="https://github.com/daneshbadlani/Co-Pilot-For-Healthcare" ><img id="project-shot" src="../assets/projects/healthcare.png"/></a></h3>
         <div class="desc">Collaborated with product manager, UX designer, ML engineer to provide proof of concept of a healthcare solution utilizing OpenAI. 
@@ -130,10 +140,10 @@
           </div>
         </div>
         </li>
-      <li>
+      <li class="filterby fullstack">
         <h3><a class="project-title" href="https://front-end-carbon-emission.vercel.app/" ><span class="demo-link">Capstone: CARbon e-Mission | demo link (08/2022)</span></a> 
           <a href="https://www.youtube.com/watch?v=az7RB3GA-iE" ><img id="project-shot" src="../assets/projects/carbon.png"/></a></h3>
-        <div class="desc">Designed and developed a vehicle CO2 emission web app that integrates Carbon Interface and Google APIs and provides fuel efficient vehicle and climated related data insights
+        <div class="desc">Designed and developed a vehicle CO2 emission web app that integrates Carbon Interface and Google APIs and provides fuel efficient vehicle and climated related data insights.
           <a class="project-repo" href="https://github.com/Liqingcathy/front-end-carbon-emission"><strong class="frontend">Frontend Repo</strong> | </a>
           <a class="project-repo" href="https://github.com/Liqingcathy/back-end-carbon-emission"><strong class="backend">Backend Repo</strong></a>
             <br />
@@ -156,7 +166,8 @@
           </div>
         </div>
         </li>
-      <li><h3><a href="https://front-end-inspiration-board.vercel.app/">Group Project: Inspired Board(07/2022)
+      <li class="filterby fullstack">
+        <h3><a href="https://front-end-inspiration-board.vercel.app/">Group Project: Inspired Board(07/2022)
         <img id="project-shot" src="../assets/projects/inspirationboard.png" alt="react food"/></h3></a>
         <div class="desc">Developed React components and Flask Restfull APIs and collaborated and troubleshot within a group utilizing git environment, standup meeting, and pair programming. <br />
           <a class="project-repo" href="https://github.com/Liqingcathy/front-end-inspiration-board"><strong class="frontend">Frontend Repo</strong> | </a>
@@ -181,7 +192,8 @@
           </div>
         </div>
       </li>
-      <li><h3><a href="https://github.com/Liqingcathy/task-list-api" >Task List Rest API Backend(06/2022)
+      <li class="filterby backend">
+        <h3><a href="https://github.com/Liqingcathy/task-list-api" >Task List Rest API Backend(06/2022)
         <img id="project-shot" src="../assets/projects/tasklist.png" alt="tasklist"/></h3></a>
         <div class="desc">Applied Restfull API methods to create, get, update, and delete tasks. Integrated with Postgres SQLAlchemy to store created
           "Task" and "Goal" models with user input values.<br />
@@ -200,7 +212,8 @@
           </div>
         </div>
       </li>
-      <li><h3>Google Ads Generator Software(11/2021)<img id="project-shot" src="../assets/projects/google.png" alt="google ads"/></h3>
+      <li class="filterby backend">
+        <h3>Google Ads Generator Software(11/2021)<img id="project-shot" src="../assets/projects/google.png" alt="google ads"/></h3>
         <div class="desc">
           Added features and integrated between projects to generate automatic Google Ads server-side software.
           Reads 5000+ excel data through Java OOP design, Springboot, and Hibernate. <br />
@@ -221,7 +234,8 @@
           </div>
       </li>
       
-      <li><h3><a href="https://github.com/Liqingcathy/MEAN-Stack_Social-Network-Web">Developer Connector(08/2021)<img id="project-shot" src="../assets/projects/devconn.png" alt="wack mole"/></h3></a>
+      <li class="filterby fullstack">
+        <h3><a href="https://github.com/Liqingcathy/MEAN-Stack_Social-Network-Web">Developer Connector(08/2021)<img id="project-shot" src="../assets/projects/devconn.png" alt="wack mole"/></h3></a>
         <div class="desc">Learned to develop responsive components using Redux concept and integrated back-end service to enable users connect through social network features.
          <br />
           <div class="tech-stack">
@@ -242,8 +256,8 @@
             <span><img id="node" src="../assets/projects/nodejs.svg" /></span>
           </div>
       </li>
-
-      <li><h3><a href="https://github.com/Liqingcathy/Movie-Recommendation-System">Movie Recommendation System(06/2021)<img id="project-shot" src="../assets/projects/Movie.png" alt="movie recommendation"/></h3></a>
+      <li class="filterby backend">
+        <h3><a href="https://github.com/Liqingcathy/Movie-Recommendation-System">Movie Recommendation System(06/2021)<img id="project-shot" src="../assets/projects/Movie.png" alt="movie recommendation"/></h3></a>
         <div class="desc">Prompts users rate movies and recommend movies to users based on calculated similar rating, weighted averages, and 10+ filter interfaces.
           Reads 4000+ movies and ratings csv files. <br />
           <div class="tech-stack">
@@ -257,7 +271,8 @@
           </div>
         </div>
       </li>
-      <li><h3><a href="https://github.com/Liqingcathy/viewing-party" >Viewing Party(04/2022)<img id="project-shot" src="../assets/projects/viewing.jpg" alt="viewing party"/></h3></a>
+      <li class="filterby backend">
+        <h3><a href="https://github.com/Liqingcathy/viewing-party" >Viewing Party(04/2022)<img id="project-shot" src="../assets/projects/viewing.jpg" alt="viewing party"/></h3></a>
         <div class="desc">Creates, adds, deletes, and modifies movie lists to organize and recommend movies to friends using nested dictionary(JSON)/list data structures.<br />
           <div class="tech-stack">
             <span><img id="python" src="../assets/projects/python.png" /></span>
@@ -267,20 +282,18 @@
             <span><img id="json" src="../assets/projects/JSON.png" /></span>
           </div>
       </li>
-      <li><h3><a href="https://github.com/Liqingcathy/WhackAMole">Whac-A-Mole Game(07/2021)<img id="project-shot" src="../assets/projects/whackmole.png" alt="wack mole"/></h3></a>
+      <li class="filterby">
+        <h3><a href="https://github.com/Liqingcathy/WhackAMole">Whac-A-Mole Game(07/2021)<img id="project-shot" src="../assets/projects/whackmole.png" alt="wack mole"/></h3></a>
         <div class="desc">Users gain points by whacking each mole as it appears. Press 'Start' and 'Stop' to play/end the game and 'Levelup' the speed. <br/>
           <div class="tech-stack">
             <span><img id="htmlcssjs" src="../assets/projects/htmlcssjs.png" alt="html"/></span>
         </div>
       </li>
     </ul>
-    
   </section>
   <footer>
     <div class="contact">
-      <h1>Let's Connect</h1>
-      <span><a href="https://www.linkedin.com/in/liqingcathy/?locale=en_US" ><img class="icons" src="../assets/linkedin.png" alt="linkedin"></a> </span>
-      <span><a href="https://github.com/Liqingcathy"><img class="icons" src="../assets/git.png" alt="github"></a> </span>
+      <h1>CONTACT ME</h1>
       <p id="email">
       <span><a href="mailto:cathy.glc@gmail.com">cathy.glc@gmail.com</a></span>
       </p>
@@ -289,4 +302,5 @@
   </footer>
 </main>
 </body>
+<script src="script.js"></script>
 </html>
