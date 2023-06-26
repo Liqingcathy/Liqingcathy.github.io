@@ -211,6 +211,65 @@ section .project img{
     margin-left: 5px;
 }
 
+@media screen and (max-width: 768px){
+    nav {
+        padding: 10px;
+    }
+
+    .profile-text p, .profession{
+        display: none;
+    }
+
+    .profile-text h1 {
+        padding: 25%;
+        margin-top: 20%;
+        width: 70%;
+        margin-left: -20px;
+    }
+
+    .profile-text .social-contact {
+        padding: 20%;
+    }
+
+    .skill {
+        position: relative;
+        top: -80px;
+    }
+
+    .skill img, .skill h3, .skill p, .skill span {
+        position: relative;
+        top: -50px;
+        margin-bottom: 30px;
+    }
+
+    #project {
+        position: relative;
+        left: -50px;
+        top: -30px;
+    }
+
+    .filter-container {
+        position: relative;
+        width: 90%;
+        left: 10px;
+        margin: 10px 10px;
+    }
+
+    #project-ul li {
+        margin-left: -30px;
+        margin-top: -10px;
+    }
+
+    .tech-stack span{
+        margin-bottom: 20px;
+    }
+
+    #email span {
+        top: 10px;
+        text-decoration: none;
+    }
+}
+
 #flask{
     width: 40px;
 }
