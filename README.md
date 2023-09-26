@@ -1,4 +1,1 @@
-# A Personal portfolio site that demonstrates development projects
-    - FullStack Development
-    - Backend Development
-    - Hackathon
+# A Personal portfolio web site that demonstrates development projects
