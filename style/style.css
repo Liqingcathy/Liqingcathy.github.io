@@ -11,29 +11,16 @@ a{
 }
 
 a:hover{
-    color: #6b747a;
+    color: #6d7a84;
 }
 
 footer {
-    background-color: #c2ccce;
+    color: #9BAAAE;
+}
+
+.note {
+    margin: 0 auto;
     text-align: center;
-    padding: 20px;
-}
-
-footer h1{
-    padding: 20px;
-}
-
-#email {
-    padding: 10px;
-    text-decoration: underline;
-    font-size: larger;
-}
-
-::selection{
-    background-color:#606d70;
-}
-
-#copyright {
-    margin-top: 50px;
+    width: 30%;
+    padding: 10rem;
 }
