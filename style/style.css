@@ -18,9 +18,14 @@ footer {
     color: #9BAAAE;
 }
 
-.note {
+.footer-pd {
+    padding-top: 20rem;
+    width: 15%;
     margin: 0 auto;
-    text-align: center;
-    width: 30%;
-    padding: 10rem;
+    font-weight: lighter;
+    display: flex;   
+}
+
+.year {
+    margin: auto;
 }
