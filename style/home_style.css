@@ -77,14 +77,15 @@ section .various-skills {
 .various-skills button {
     width: 8rem;
     padding: 10px;
-    background-color: rgb(223, 223, 223);
+    background-color:rgb(198, 206, 209) ;
     border-radius: 2em;
     border: none;
 }
 
 .various-skills button:focus,
 .various-skills button:active {
-    background-color: #bfbfbf;;
+    background-color: rgb(152, 167, 174) ;
+    ;
 }
 
 .filterby:not(.show) {
@@ -136,13 +137,11 @@ section .various-skills {
 }
 
 .tech-stacks {
-    margin-top: -1rem;
-    gap: 2rem;
-}
-
-.tech-stack {
+    margin-top: 0.1em;
+    font-size: smaller;
+    color:#7f8c90;
+    font-weight: 300;
     display: inline-flex;
-    margin-top: -0.5rem;
 }
 
 @media screen and (max-width: 768px){

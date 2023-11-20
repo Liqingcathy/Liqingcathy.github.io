@@ -17,6 +17,8 @@
   <link href="/style/home_style.css" rel="stylesheet" />
   <link href="/style/icons.css" rel="stylesheet" />
   <title>Portfolio of LQ</title>
+  <link rel="icon" type="image/png" href="/assets/profile.png">
+
 </head>
 <body>
   <main>
@@ -39,9 +41,10 @@
             <p>Liqing offers various skills </p>
             <div class="various-skills">
                 <button class="filterbtn active" onclick="filterBySkills('all')">All</button>
-                <button class="filterbtn" onclick="filterBySkills('fullstack')">Full-Stack Development</button>
-                <button class="filterbtn" onclick="filterBySkills('backend')">Backend Development</button>
+                <button class="filterbtn" onclick="filterBySkills('frontend')">Front-End Development</button>
                 <button class="filterbtn" onclick="filterBySkills('uiux')">UI/UX</button>
+                <button class="filterbtn" onclick="filterBySkills('fullstack')">Full-Stack Development</button>
+                <button class="filterbtn" onclick="filterBySkills('backend')">Back-End Development</button>
                 <button class="filterbtn" onclick="filterBySkills('hackathon')">Hackathon</button>
                 <button class="filterbtn" onclick="filterBySkills('analytics')">Data Analytics</button>
               </div>
@@ -50,7 +53,26 @@
 
   <section class="project-section">
     <ul id="project-ul" class="project" >
-      <li class="filterby fullstack uiux">
+      <li class="filterby frontend uiux">
+        <a class="project-title" href="#"><img class="rEvamp" id="project-shot" 
+          alt="evcharger" src="/assets/projects/carcharge.png" loading="lazy"/>
+        <h3>Climatebase Group project (12/2023)</h3></a>
+        <div class="desc">rEVamp Charger Website Coming Soon</div>          
+        <div class="tech-stacks">
+          <span>User Research, TypeScript, Charkra UI, CSS</span>
+        </div>
+      </li>
+
+      <li class="filterby frontend uiux">
+        <a class="project-title" href="#"><img class="rEvamp" id="project-shot" 
+          alt="zerowaste" src="/assets/projects/wastetrack.png" loading="lazy"/>
+        <h3>Climatebase Group project (12/2023)</h3></a>
+        <div class="desc">Zero Waste Website Coming Soon</div>
+          <div class="tech-stacks">
+            <span>TypeScript, Next.js, Auth, Tailwind CSS</span>
+          </div>
+      </li>
+      <li class="filterby fullstack frontend uiux">
         <a href="https://front-end-carbon-emission.vercel.app/" >
           <img id="project-shot" src="../assets/projects/carbon.png" alt="carbon" loading="lazy"/>
           <h3><span class="demo-link">Capstone Project (08/2022)</span></h3>
@@ -58,27 +80,7 @@
         <div class="desc">Vehicle Carbon emission tracking dashboard that processes and analyzes user input data with 3-rd party APIs.
         </div>
         <div class="tech-stacks">
-          <div class="tech-stack">
-            <span><img id="react" src="../assets/projects/reactbl.png" /></span>
-          </div>
-          <div class="tech-stack">
-            <span><img id="python" src="../assets/projects/python.png" /></span>
-          </div>
-          <div class="tech-stack">
-            <span><img id="flask" src="../assets/projects/flask.png" /></span>
-          </div>
-          <div class="tech-stack">
-            <span><img id="carbonapi" src="../assets/projects/carbonapi.png" /></span>
-          </div>
-          <div class="tech-stack">
-            <span><img id="googleapi" src="../assets/projects/googleapi.png" /></span>
-          </div>
-          <div class="tech-stack">
-            <span><img id="restapi" src="../assets/projects/restapi.png" /></span>
-          </div>
-          <div class="tech-stack">
-            <span><img id="es" src="../assets/projects/elastic.png" /></span>
-          </div>
+            <span>React, Python, Flask, Carbon/Google API, REST API, Elasticsearch</span>
           </div>
         </li>
       <li class="filterby fullstack">
@@ -86,185 +88,77 @@
           <img id="project-shot" src="../assets/projects/inspirationboard.png" alt="react food" loading="lazy"/>
           <h3>Inspiration Board(07/2022)</h3>
         </a>
-        <div class="desc">Enabled users to create board category and card message and like, sort and notify messages. <br />
-        </div>          
+        <div class="desc">Enabled users to create board category and card message and like, sort and notify messages.</div>          
         <div class="tech-stacks">
-          <div class="tech-stack">
-            <span><img id="react" src="../assets/projects/reactbl.png" /></span>
-          </div>
-          <div class="tech-stack">
-            <span><img id="python" src="../assets/projects/python.png" /></span>
-          </div>
-          <div class="tech-stack">
-            <span><img id="flask" src="../assets/projects/flask.png" /></span>
-          </div>
-          <div class="tech-stack">
-            <span><img id="postgres" src="../assets/projects/postgresql.png" /></span>
-          </div>
-          <div class="tech-stack">
-            <span><img id="restapi" src="../assets/projects/restapi.png" /></span>
-          </div>
+          <span>React, Python, Flask, PostgreSQL, REST API, Heroku</span>
         </div>
       </li>
       <li class="filterby backend">
         <a href="https://github.com/Liqingcathy/task-list-api" ><img id="project-shot" 
           src="../assets/projects/tasklist.png" alt="tasklist" loading="lazy"/>
           <h3>Task List API (06/2022)</h3></a>
-        <div class="desc">Achieved "Task" and "Goal" Object relational mapping through Postgres, SQLAlchemy and APIs design.
-        </div>
+        <div class="desc">Achieved "Task" and "Goal" Object relational mapping through Postgres, SQLAlchemy and APIs design.</div>
         <div class="tech-stacks">
-          <div class="tech-stack">
-            <span><img id="python" src="../assets/projects/python.png" /></span>
-          </div>
-          <div class="tech-stack">
-            <span><img id="flask" src="../assets/projects/flask.png" /></span>
-          </div>
-          <div class="tech-stack">
-            <span><img id="postgres" src="../assets/projects/postgresql.png" /></span>
-          </div>
-          <div class="tech-stack">
-            <span><img id="restapi" src="../assets/projects/restapi.png" /></span>
-          </div>
+          <span>React, Python, Flask, PostgreSQL, REST API, Heroku</span>
         </div>
       </li>
       <li class="filterby backend">
         <img id="project-shot" src="../assets/projects/googleAd.jpg" alt="google ads" height="230" loading="lazy"/>
         <h3>Google Ads Generator (11/2021)</h3>
-        <div class="desc">
-          Translated business requirements into an auto-generated marketing solution utilizing OOP, Spring MVC, Hibernate, and MySQL workbench.  <br />
-          <div class="tech-stacks">
-            <div class="tech-stack">
-              <span><img id="java" src="../assets/projects/java.png" alt="java"/></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="mysql" src="../assets/projects/mysql.png" alt="sql"/></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="spring" src="../assets/projects/springboot.png" alt="spring"/></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="hibernate" src="../assets/projects/hibernate.png" alt="hibernate"/></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="eclipse" src="../assets/projects/eclipse.png" alt="eclipse"/></span>
-            </div>
-          </div>
-        </div>
+          <div class="desc">Translated business requirements into an auto-generated marketing solution MVP.</div>
+          <div class="tech-stacks"><span>Java, OOP, Spring Boot, Hibernate, MySQL, Eclipse</span></div>
       </li>
       <li class="filterby backend">
         <a href="https://github.com/Liqingcathy/Movie-Recommendation-System"><img id="project-shot" 
           src="../assets/projects/Movie.png" alt="movie recommendation" loading="lazy"/>
         <h3>Recommendation System (06/2021)</h3></a>
-        <div class="desc">Recommended movies based on calculated similar rating, and weighted averages incorporating movies and ratings csv files.
-          <br />
+        <div class="desc">Recommended movies based on calculated similar rating, and weighted averages incorporating movies and ratings csv files.</div>
           <div class="tech-stacks">
-            <div class="tech-stack">
-              <span><img id="java" src="../assets/projects/java.png" alt="java"/></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="bluej" src="../assets/projects/bluej.png" alt="duke" /></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="eclipse" src="../assets/projects/eclipse.png" alt="eclipse"/></span>
-            </div>
+            <span>HTML, Java, OOP, BlueJ, Eclipse</span>
           </div>
-        </div>
       </li>
       <li class="filterby fullstack">
         <a href="https://github.com/Liqingcathy/MEAN-Stack_Social-Network-Web">
           <img id="project-shot" src="../assets/projects/devconn.png" alt="wack mole" loading="lazy"/>
           <h3>Developer Connector (08/2021)</h3>
         </a>
-        <div class="desc">Enhanced understanding of Redux, Node.js, Express.js, Jason Web Token, and JavaScript Asynchronous programming.
+        <div class="desc">Enhanced understanding of Redux, Node.js, Express.js, Jason Web Token, and JavaScript Asynchronous programming.</div>
           <div class="tech-stacks">
-            <div class="tech-stack">
-              <span><img id="mongodb" src="../assets/projects/mongodb.png" /></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="express" src="../assets/projects/expressjs.png" /></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="react" src="../assets/projects/reactbl.png" /></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="redux" src="/assets/projects/redux.jpg" /></span>
-              <span class="tech-lang"></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="node" src="../assets/projects/nodejs.svg" /></span>
-            </div>
+              <span>Redux, MongoDB, Express, Node</span>
           </div> 
-        </div>
       </li>
       <li class="filterby analytics">
         <a href="https://github.com/Liqingcathy/AdTracker" ><img id="project-shot" 
           src="../assets/projects/adtracker.png" alt="adtracker" loading="lazy"/>
           <h3>Database Design (03/2021)</h3>
         </a>
-        <div class="desc">A Sales-Tracking Relational Database System.
-          <br/>
+        <div class="desc">A Sales-Tracking Relational Database System.</div>
           <div class="tech-stacks">
-            <div class="tech-stack">
-              <span><img id="mysql" src="../assets/projects/mysql.png" alt="sql"/></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="jdbc" src="../assets/projects/jdbc.jpeg" alt="jdbc"/></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="rds" src="../assets/projects/rds.png" alt="rds"/></span>
-            </div>
+            <span>RDBMS-MySQL-JDBC-AWS RDS-Tableau</span>
           </div>
-        </div>
       </li>
       <li class="filterby hackathon uiux">
           <img id="project-shot" src="../assets/projects/healthcare.png" alt="healthcare" loading="lazy"/>
           <h3>Seattle AI Hackathon (03/2023)</h3> 
-          <div class="desc">Healthcare proof-of-concept project.
-            <br/>
+          <div class="desc">Healthcare proof-of-concept project.</div>
             <div class="tech-stacks">
-              <div class="tech-stack">
-                <span><img id="react" src="../assets/projects/reactbl.png" /></span>
-              </div>
-              <div class="tech-stack">
-                <span><img id="python" src="../assets/projects/python.png" /></span>
-              </div>
-              <div class="tech-stack">
-                <span><img id="ai" src="../assets/ai.png" /></span>
-              </div>
-              <div class="tech-stack">
-                <span><img id="restapi" src="../assets/projects/restapi.png" /></span>
-              </div>
+              <span>React, Python, OpenAI, Rest API</span>
             </div>
-          </div>
         </li>
       <li class="filterby hackathon uiux">
         <a class="project-title" href="https://devpost.com/software/think-twice-ebmjlx"><img class="techtogether" id="project-shot" 
           alt="hackathon" src="../assets/projects/hackathon.png" loading="lazy"/>
         <h3>TechTogether Seattle (05/2023)</h3></a>
-        <div class="desc"><strong>WINNER of Best Financial Hack with Capital One.
-          <br/>
+        <div class="desc">WINNER of Best Financial Hack with Capital One.</div>          <div class="tech-stacks">
           <div class="tech-stacks">
-            <div class="tech-stack">
-              <span><img id="htmlcssjs2" src="../assets/projects/htmlcssjs.png" /></span>
-              <span class="tech-lang"></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="python" src="../assets/projects/python.png" /></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="mongodb" src="../assets/projects/mongodb.png" /></span>
-            </div>
-            <div class="tech-stack">
-              <span><img id="restapi" src="../assets/projects/restapi.png" /></span>
-            </div>
+            <span>JavaScript, MongoDB, Rest API</span>
           </div>
-        </div>
       </li>
     </ul>
   </section>
   <footer>
     <div class="footer-pd">
-      <span class="year">©2023🪴</span>
+      <span class="year">©2022-2023🪴</span>
     </div>
   </footer>
 </main>
