@@ -77,14 +77,14 @@ section .various-skills {
 .various-skills button {
     width: 8rem;
     padding: 10px;
-    background-color:rgb(198, 206, 209) ;
+    background-color:rgb(227, 230, 231);
     border-radius: 2em;
     border: none;
 }
 
 .various-skills button:focus,
 .various-skills button:active {
-    background-color: rgb(152, 167, 174) ;
+    background-color: rgb(205, 209, 210);
     ;
 }
 
