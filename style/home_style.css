@@ -135,11 +135,9 @@ section .various-skills {
 }
 
 .tech-stacks {
-    margin-top: 0.1em;
-    font-size: smaller;
-    color:#013e4e;
-    font-weight: 300;
+    /* margin-top: 0.1em; */
     display: inline-flex;
+    font-size: small;
 }
 
 #climatebase-desc {
