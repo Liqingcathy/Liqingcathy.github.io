@@ -144,6 +144,15 @@ section .various-skills {
     display: inline-flex;
 }
 
+#climatebase-desc {
+    position: absolute;
+    display: block;
+    top: 35rem;
+    padding: 0px;
+    height: fit-content;
+    width: 90%;
+}
+
 @media screen and (max-width: 768px){
     .profile-text .pronoun {
         display: none;
@@ -155,6 +164,10 @@ section .various-skills {
 
     .various-skills button {
         margin: 0 auto;
+    }
+
+    #climatebase-desc {
+        display: none;
     }
 }
 

@@ -76,6 +76,9 @@
             <button class="filterbtn" onclick="filterBySkills('uiux')">
               UI/UX
             </button>
+            <button class="filterbtn" onclick="filterBySkills('climatebase')">
+              Climatebase
+            </button>
             <button class="filterbtn" onclick="filterBySkills('fullstack')">
               Full-Stack Development
             </button>
@@ -88,13 +91,14 @@
             <button class="filterbtn" onclick="filterBySkills('analytics')">
               Data Analytics
             </button>
+            <button class="sortbtn" onclick="sortByTime()">Sort</button>
           </div>
         </div>
       </section>
 
       <section class="project-section">
         <ul id="project-ul" class="project">
-          <li class="filterby frontend uiux">
+          <li class="filterby frontend uiux climatebase" data-date="2023-12">
             <a class="project-title" href="#"
               ><img
                 class="rEvamp"
@@ -103,15 +107,18 @@
                 src="/assets/projects/carcharge.png"
                 loading="lazy"
               />
-              <h3>Climatebase Group project (12/2023)</h3></a
+              <h3>Group project (12/2023)</h3></a
             >
             <div class="desc">rEVamp Charger Website Coming Soon</div>
             <div class="tech-stacks">
-              <span>User Research, TypeScript, Charkra UI, CSS</span>
+              <span
+                >User Research, UX, React, TypeScript, Charkra UI, CSS,
+                SEO</span
+              >
             </div>
           </li>
 
-          <li class="filterby frontend uiux">
+          <li class="filterby frontend uiux climatebase" data-date="2023-12">
             <a class="project-title" href="#"
               ><img
                 class="rEvamp"
@@ -120,14 +127,17 @@
                 src="/assets/projects/wastetrack.png"
                 loading="lazy"
               />
-              <h3>Climatebase Group project (12/2023)</h3></a
+              <h3>Group project (12/2023)</h3></a
             >
             <div class="desc">Zero Waste Website Coming Soon</div>
             <div class="tech-stacks">
-              <span>TypeScript, Next.js, Auth, Tailwind CSS</span>
+              <span
+                >React, TypeScript, Next.js, Auth, Tailwind CSS, Appwrite,
+                UX</span
+              >
             </div>
           </li>
-          <li class="filterby fullstack frontend uiux">
+          <li class="filterby fullstack frontend uiux" data-date="2023-08">
             <a href="https://front-end-carbon-emission.vercel.app/">
               <img
                 id="project-shot"
@@ -147,7 +157,7 @@
               >
             </div>
           </li>
-          <li class="filterby fullstack">
+          <li class="filterby fullstack" data-date="2022-07">
             <a href="https://front-end-inspiration-board.vercel.app/">
               <img
                 id="project-shot"
@@ -165,7 +175,7 @@
               <span>React, Python, Flask, PostgreSQL, REST API, Heroku</span>
             </div>
           </li>
-          <li class="filterby backend">
+          <li class="filterby backend" data-date="2022-06">
             <a href="https://github.com/Liqingcathy/task-list-api"
               ><img
                 id="project-shot"
@@ -183,7 +193,7 @@
               <span>React, Python, Flask, PostgreSQL, REST API, Heroku</span>
             </div>
           </li>
-          <li class="filterby backend">
+          <li class="filterby backend" data-date="2021-11">
             <img
               id="project-shot"
               src="../assets/projects/googleAd.jpg"
@@ -200,7 +210,7 @@
               <span>Java, OOP, Spring Boot, Hibernate, MySQL, Eclipse</span>
             </div>
           </li>
-          <li class="filterby backend">
+          <li class="filterby backend" data-date="2021-06">
             <a href="https://github.com/Liqingcathy/Movie-Recommendation-System"
               ><img
                 id="project-shot"
@@ -218,7 +228,7 @@
               <span>HTML, Java, OOP, BlueJ, Eclipse</span>
             </div>
           </li>
-          <li class="filterby fullstack">
+          <li class="filterby fullstack" data-date="2021-08">
             <a
               href="https://github.com/Liqingcathy/MEAN-Stack_Social-Network-Web"
             >
@@ -238,7 +248,7 @@
               <span>Redux, MongoDB, Express, Node</span>
             </div>
           </li>
-          <li class="filterby analytics">
+          <li class="filterby analytics" data-date="2021-03">
             <a href="https://github.com/Liqingcathy/AdTracker"
               ><img
                 id="project-shot"
@@ -253,7 +263,7 @@
               <span>RDBMS-MySQL-JDBC-AWS RDS-Tableau</span>
             </div>
           </li>
-          <li class="filterby hackathon uiux">
+          <li class="filterby hackathon uiux" data-date="2023-03">
             <img
               id="project-shot"
               src="../assets/projects/healthcare.png"
@@ -266,7 +276,7 @@
               <span>React, Python, OpenAI, Rest API</span>
             </div>
           </li>
-          <li class="filterby hackathon uiux">
+          <li class="filterby hackathon uiux" data-date="2023-03">
             <a
               class="project-title"
               href="https://devpost.com/software/think-twice-ebmjlx"
