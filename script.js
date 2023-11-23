@@ -67,6 +67,7 @@ const removeClass = (domElement, elementClass) => {
   domElement.className = elementClassName1.join(' ');
 }
 
+let ascendingOrder = true;
 const sortByTime = () => {
   const projectLists = document.querySelectorAll(".project li");
   console.log(projectLists);
@@ -75,12 +76,13 @@ const sortByTime = () => {
     element: element,
     date: new Date(element.getAttribute("data-date"))
   }));
-  console.log(projectWithDates);
+
+  ascendingOrder = !ascendingOrder;
 
   projectWithDates.sort((a,b) => {
-    return b.date - a.date
+    return ascendingOrder ? b.date - a.date : a.date - b.date;
   });
-  console.log('sorted?', projectWithDates);
+  
   //clear existing projects 
   const ulProject = document.querySelector(".project");
   ulProject.innerHTML = '';
