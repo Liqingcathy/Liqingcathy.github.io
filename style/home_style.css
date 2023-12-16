@@ -44,7 +44,7 @@ nav {
 }
 
 .profile-text p {
-    padding-top: 10rem;
+    padding-top: 5rem;
     font-size: 6.6vw;
     font-weight: 700;
     font-style: italic;
@@ -70,12 +70,12 @@ section .various-skills {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 3px;
-    margin: 4rem 3rem;
-    font-size: 1.5vw;
+    margin: 3rem 3rem;
+    font-size: 1.2vw;
 }
 
 .various-skills button {
-    width: 6rem;
+    width: 6.5rem;
     padding: 5px;
     background-color:rgb(227, 230, 231);
     border-radius: 2em;
@@ -86,7 +86,8 @@ section .various-skills {
 .various-skills button:focus,
 .various-skills button:active,
 .various-skills button:hover {
-    background-color: rgb(205, 209, 210);
+    background-color:black;
+    color: white;
     cursor: pointer;
 }
 
@@ -102,13 +103,9 @@ section .various-skills {
 .project-section .project {
     margin: 0 -1rem;
     display: grid;
-    gap: 2px;
-    grid-template-columns:repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 1px;
+    grid-template-columns:repeat(auto-fit, minmax(21rem, 1fr));
     list-style-type: none;
-}
-
-.capstone-li {
-    height: 40%;
 }
 
 .project-section .project > li {
@@ -117,6 +114,7 @@ section .various-skills {
     margin-left: -0.6rem;
     margin-right: 0.5rem;
     margin-bottom: 1rem;
+    font-size: medium;
 }
 
 .project-section .project img{
@@ -131,19 +129,18 @@ section .various-skills {
 .project .desc{
    margin-top: -1rem;
    margin-right: 1rem;
-   font-size: smaller;
+   font-size: small;
 }
 
 .tech-stacks {
-    /* margin-top: 0.1em; */
     display: inline-flex;
-    font-size: small;
+    font-size: x-small;
 }
 
 #climatebase-desc {
     position: absolute;
     display: block;
-    top: 34rem;
+    top: 28rem;
     padding: 0px;
     height: fit-content;
     width: 90%;

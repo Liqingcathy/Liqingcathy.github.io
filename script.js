@@ -36,10 +36,10 @@ const addClass = (domElement, elementClass, option) => {
       textPara = document.createElement("div");
       textPara.id = 'climatebase-desc';
       const text = `
-                    Contributed as a self-starting developer and researcher on projects 
-                    MVP ideation, Website designing, and Web development,
+                    Contributed as a self-starting developer on projects 
+                    MVP ideation & design (FigJam, Figma), and web development,
                     working closely with industry 
-                    UX researchers, product managers, engineers, and SEO experts.
+                    UX researchers, product managers, software engineers, and SEO expert.
                     `;
       const node = document.createTextNode(text);
       textPara.appendChild(node);
