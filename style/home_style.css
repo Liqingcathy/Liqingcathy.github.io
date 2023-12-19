@@ -75,12 +75,12 @@ section .various-skills {
 }
 
 .various-skills button {
-    width: 6.5rem;
+    width: 6rem;
     padding: 5px;
     background-color:rgb(227, 230, 231);
     border-radius: 2em;
     border: none;
-    font-size: small;
+    font-size: smaller;
 }
 
 .various-skills button:focus,
@@ -140,7 +140,7 @@ section .various-skills {
 #climatebase-desc {
     position: absolute;
     display: block;
-    top: 28rem;
+    top: 29rem;
     padding: 0px;
     height: fit-content;
     width: 90%;
@@ -158,7 +158,7 @@ section .various-skills {
 #sortbtn:hover, 
 #sortbtn:active,
 #sortbtn:focus {
-    background-color: rgb(188, 192, 193);
+    background-color: rgb(0, 0, 0);
 }
 
 @media screen and (max-width: 768px){
