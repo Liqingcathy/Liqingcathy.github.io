@@ -3,3 +3,7 @@ projects.html
 .vscode
 .DS_Store
 icons.css
+data/
+node_modules
+user_connection.json
+package-lock.json
