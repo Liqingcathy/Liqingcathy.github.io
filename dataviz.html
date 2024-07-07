@@ -10,10 +10,40 @@
   <body>
     <h1>Narrative Visualization Project</h1>
     <h5>"gowalla" friendship network app user activity data insights</h5>
-    <div id="svg-container"></div>
+    <section>
+      <div>
+        <label for="durationRange">user check-in duration (hours):</label>
+        <input
+          type="range"
+          id="durationRange"
+          min="0"
+          max="9684"
+          value="0"
+          oninput="updateGraph()"
+        />
+        <span id="durationValue">0</span>
+      </div>
+      <div>
+        <label for="frequencyRange">user check-in frequency:</label>
+        <input
+          type="range"
+          id="frequencyRange"
+          min="1"
+          max="2025"
+          value="1"
+          oninput="updateGraph()"
+        />
+        <span id="frequencyValue">1</span>
+      </div>
+      <div class="svg-chart-wrapper">
+        <div id="svg-container"></div>
+        <div id="chart-container"></div>
+      </div>
+    </section>
     <script src="script.js" defer></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://unpkg.com/topojson-client@3"></script>
+    <script src="https://cdn.rawgit.com/susielu/d3-annotation/master/d3-annotation.js"></script>
+    <script src="https://cdn.rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
     <script src="d3.js"></script>
   </body>
 </html>
