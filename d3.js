@@ -7,7 +7,6 @@ let link;
 let user_node;
 let annotations;
 let makeAnnotations;
-const colors = [];
 let userCheckInTimes;
 let timeoutId;
 
@@ -40,21 +39,45 @@ async function fetchData() {
     console.log("Nodes: ", allNodes); //100
     console.log("Links: ", allLinks); //2298
 
-    const durations = allNodes.map((node) => node.check_in_duration);
-    const frequencies = allNodes.map((node) => node.check_in_frequency);
-
+    // const connections = allNodes.map((node) => node.connections.length);
+    // const durations = allNodes.map((node) => node.check_in_duration);
+    // const frequencies = allNodes.map((node) => node.check_in_frequency);
+    // const minConnection = Math.min(...connections); //1
+    // const maxConnection = Math.max(...connections); //64
     // const minDuration = Math.min(...durations); //0
     // const maxDuration = Math.max(...durations); //9684.83
     // const minFrequency = Math.min(...frequencies); //1
     // const maxFrequency = Math.max(...frequencies); //2025
 
     document
+      .getElementById("connectionRange")
+      .addEventListener("input", updateGraph, { passive: true });
+    document
       .getElementById("durationRange")
       .addEventListener("input", updateGraph, { passive: true });
-
     document
       .getElementById("frequencyRange")
       .addEventListener("input", updateGraph, { passive: true });
+
+    document
+      .getElementById("connect-btn")
+      .addEventListener("click", () => clusterNodes("connections"), {
+        passive: true,
+      });
+    document
+      .getElementById("duration-btn")
+      .addEventListener("click", () => clusterNodes("duration"), {
+        passive: true,
+      });
+    document
+      .getElementById("freq-btn")
+      .addEventListener("click", () => clusterNodes("frequency"), {
+        passive: true,
+      });
+
+    document
+      .getElementById("reset-btn")
+      .addEventListener("click", resetGraph, { passive: true });
 
     createGraph(allNodes, allLinks);
   } catch (error) {
@@ -63,6 +86,15 @@ async function fetchData() {
 }
 
 fetchData();
+
+function resetGraph() {
+  d3.select("#svg-container").selectAll("svg").remove();
+
+  document.getElementById("svg-container").style.width = "100%";
+  document.getElementById("chart-container").style.width = "0";
+
+  createGraph(allNodes, allLinks);
+}
 
 function calculateCheckInDuration(data) {
   const checkInTime = data.map((n) => new Date(n));
@@ -227,6 +259,9 @@ function dragEnded(event, d) {
 }
 
 function updateGraph() {
+  const connectionRange = parseFloat(
+    document.getElementById("connectionRange").value
+  );
   const durationRange = parseFloat(
     document.getElementById("durationRange").value
   );
@@ -235,11 +270,13 @@ function updateGraph() {
     10
   );
 
+  document.getElementById("connectionValue").textContent = connectionRange;
   document.getElementById("durationValue").textContent = durationRange;
   document.getElementById("frequencyValue").textContent = frequencyRange;
 
   const filteredNodes = allNodes.filter(
     (node) =>
+      node.connections.length <= connectionRange ||
       node.check_in_duration <= durationRange ||
       node.check_in_frequency <= frequencyRange
   );
@@ -363,4 +400,129 @@ function handleNodeDetails(event, d) {
     .attr("cx", (d) => x(d.date) + x.bandwidth() / 2)
     .attr("cy", (d) => y(d.time))
     .style("fill", "#DC5F00");
+}
+
+//forceCollide code snippet credit to https://observablehq.com/@d3/clustered-bubbles
+//prevents nodes from overlapping
+function forceCollide() {
+  const alpha = 0.4;
+  const padding1 = 2;
+  const padding2 = 3;
+  let nodes;
+  let maxRadius;
+
+  //For each node, find nearby nodes using the quadtree
+  //and apply a repelling force if they are too close
+  function force() {
+    const quadtree = d3.quadtree(
+      nodes,
+      (d) => d.x,
+      (d) => d.y
+    );
+    for (const d of nodes) {
+      const r = d.r + maxRadius;
+      const nx1 = d.x - r,
+        ny1 = d.y - r;
+      const nx2 = d.x + r,
+        ny2 = d.y + r;
+      quadtree.visit((q, x1, y1, x2, y2) => {
+        if (!q.length)
+          do {
+            if (q.data !== d) {
+              const r =
+                d.r +
+                q.data.r +
+                (d.cluster === q.data.cluster ? padding1 : padding2);
+              let x = d.x - q.data.x,
+                y = d.y - q.data.y,
+                l = Math.hypot(x, y);
+              if (l < r) {
+                l = ((l - r) / l) * alpha;
+                d.x -= x *= l;
+                d.y -= y *= l;
+                q.data.x += x;
+                q.data.y += y;
+              }
+            }
+          } while ((q = q.next));
+        return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+      });
+    }
+  }
+
+  force.initialize = (_) =>
+    (maxRadius =
+      d3.max((nodes = _), (d) => d.r) + Math.max(padding1, padding2));
+
+  return force;
+}
+
+function clusterNodes(attribute) {
+  const clusters = {}; //holds x and y coordinates for each cluster
+  const colors = ["#371610", "#88281A", "#EC4931", "#BDACA9"]; //assign 4 groups color clusters
+  const colorScale = d3.scaleOrdinal(colors);
+
+  const attributeRange = {
+    connections: { min: 1, max: 64 },
+    duration: { min: 0, max: 9684.83 },
+    frequency: { min: 1, max: 2025 },
+  };
+
+  const { min, max } = attributeRange[attribute];
+
+  // Cluster key value between 0 and 3
+  // Normalizes the attribute value within the range 1799 / 2024 ≈ 0.8892
+  // Scales this normalized value to fit within the number of color categories 0.8892 * 3 ≈ 2.6676
+  // Floor the result to obtain an integer index representing the cluster Math.floor(2.6676) = 2
+  allNodes.forEach((node) => {
+    let key;
+    if (attribute === "frequency") {
+      key = Math.floor(
+        ((node.check_in_frequency - min) / (max - min)) * (colors.length - 1)
+      );
+    } else if (attribute === "duration") {
+      key = Math.floor(
+        ((node.check_in_duration - min) / (max - min)) * (colors.length - 1)
+      );
+    } else if (attribute === "connections") {
+      key = Math.floor(
+        ((node.connections.length - min) / (max - min)) * (colors.length - 1)
+      );
+    }
+
+    if (!clusters[key]) {
+      clusters[key] = { x: Math.random() * 1200, y: Math.random() * 700 };
+    }
+
+    node.cluster = key;
+    console.log("key: ", key);
+    node.color = colorScale(key);
+  });
+
+  const forceX = d3.forceX((d) => clusters[d.cluster].x).strength(0.5);
+  const forceY = d3.forceY((d) => clusters[d.cluster].y).strength(0.5);
+
+  simulation
+    .force("x", forceX)
+    .force("y", forceY)
+    .force("collide", forceCollide())
+    .alpha(0.5)
+    .restart();
+
+  user_node
+    .attr("fill", (d) => d.color)
+    .attr("r", (d) => {
+      // e.g: normalized = (1500 - 1) / (2025 - 1) ≈ 0.741
+      // scaled = Math.sqrt(0.741) ≈ 0.861
+      // radius = 5 + 0.861 * 10 ≈ 13.61
+      if (attribute === "frequency") {
+        return 5 + Math.sqrt((d.check_in_frequency - min) / (max - min)) * 10;
+      } else if (attribute === "duration") {
+        return 5 + Math.sqrt((d.check_in_duration - min) / (max - min)) * 10;
+      } else if (attribute === "connections") {
+        return 5 + Math.sqrt((d.connections.length - min) / (max - min)) * 10;
+      }
+      return 5;
+    });
+  d3.select(".links").remove(); //only want to show nodes, not links
 }

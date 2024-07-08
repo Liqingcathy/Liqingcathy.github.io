@@ -12,6 +12,19 @@
     <h5>"gowalla" friendship network app user activity data insights</h5>
     <section>
       <div>
+        <label for="connectionRange">user social connections:</label>
+        <input
+          type="range"
+          id="connectionRange"
+          min="1"
+          max="64"
+          value="0"
+          oninput="updateGraph()"
+        />
+        <span id="connectionValue">0</span>
+        <span><button id="connect-btn">by connection</button></span>
+      </div>
+      <div>
         <label for="durationRange">user check-in duration (hours):</label>
         <input
           type="range"
@@ -22,6 +35,7 @@
           oninput="updateGraph()"
         />
         <span id="durationValue">0</span>
+        <span><button id="duration-btn">by duration</button></span>
       </div>
       <div>
         <label for="frequencyRange">user check-in frequency:</label>
@@ -34,6 +48,10 @@
           oninput="updateGraph()"
         />
         <span id="frequencyValue">1</span>
+        <span><button id="freq-btn">by frequency</button></span>
+      </div>
+      <div>
+        <button id="reset-btn">Reset</button>
       </div>
       <div class="svg-chart-wrapper">
         <div id="svg-container"></div>
