@@ -5,11 +5,9 @@ let svg;
 let graph;
 let link;
 let user_node;
-let annotations;
-let makeAnnotations;
 let userCheckInTimes;
 let timeoutId;
-
+let threshold;
 async function fetchData() {
   try {
     const data = await d3.json("data/sampled_combined_user_data.json");
@@ -88,12 +86,11 @@ async function fetchData() {
 fetchData();
 
 function resetGraph() {
-  d3.select("#svg-container").selectAll("svg").remove();
-
+  location.reload();
+  // d3.select("#svg-container").selectAll("svg").remove();
   document.getElementById("svg-container").style.width = "100%";
-  document.getElementById("chart-container").style.width = "0";
-
-  createGraph(allNodes, allLinks);
+  document.getElementById("chart-container").style.width = "0%";
+  // createGraph(allNodes, allLinks);
 }
 
 function calculateCheckInDuration(data) {
@@ -114,6 +111,71 @@ function getSortedCheckInTimeList(data) {
   return checkInTime;
 }
 
+//to highlight 90 percentile/top 10% of nodes (users) have highest social connections
+function highlightTopTenNodes(nodes) {
+  const connectionLengths = nodes.map((d) => d.connections.length);
+  threshold = d3.quantile(connectionLengths.sort(d3.ascending), 0.9);
+  console.log("threshold", threshold);
+}
+
+function clearAnnotations() {
+  d3.selectAll(".annotation-group").remove();
+}
+
+//annotation 1: node with top connections
+function createAnnotation(nodes) {
+  const sortedConnectionNodes = [...nodes].sort(
+    (a, b) => b.connections.length - a.connections.length
+  );
+  const sortedDurationNodes = [...nodes].sort(
+    (a, b) => b.check_in_duration - a.check_in_duration
+  );
+  const sortedFreqNodes = [...nodes].sort(
+    (a, b) => b.check_in_frequency - a.check_in_frequency
+  );
+  const topConnectionNode = sortedConnectionNodes[0];
+  console.log(topConnectionNode);
+  const topDurationNode = sortedDurationNodes[0];
+  const topFreqNode = sortedFreqNodes[0];
+
+  const annotations = [
+    {
+      note: {
+        label: `User ID: ${topConnectionNode.id}\nConnections: ${topConnectionNode.connections.length}\nCheck-in Duration: ${topConnectionNode.check_in_duration}\nCheck-in Frequency: ${topConnectionNode.check_in_frequency}`,
+        title: "Top socially connected user",
+        wrap: 250,
+      },
+      data: topConnectionNode,
+      className: "annotated_node",
+      dy: topConnectionNode.y - 40,
+      dx: topConnectionNode.x + 280,
+    },
+    {
+      note: {
+        label: `User ID: ${topDurationNode.id}\nConnections: ${topDurationNode.connections.length}\nCheck-in Duration: ${topDurationNode.check_in_duration}\nCheck-in Frequency: ${topDurationNode.check_in_frequency}`,
+        title: "Top user with the longest check-in duration",
+        wrap: 250,
+      },
+      data: topDurationNode,
+      className: "annotated_node",
+      dy: topDurationNode.y - 20,
+      dx: topDurationNode.x - 150,
+    },
+    {
+      note: {
+        label: `User ID: ${topFreqNode.id}\nConnections: ${topFreqNode.connections.length}\nCheck-in Duration: ${topFreqNode.check_in_duration}\nCheck-in Frequency: ${topFreqNode.check_in_frequency}`,
+        title: "Top user with most frequent check-in time",
+        wrap: 250,
+      },
+      data: topFreqNode,
+      className: "annotated_node",
+      dy: topFreqNode.y + 50,
+      dx: topFreqNode.x - 240,
+    },
+  ];
+  return annotations;
+}
+
 function createGraph(nodes, links) {
   const svgWidth = 1200;
   const svgHeight = 700;
@@ -123,8 +185,8 @@ function createGraph(nodes, links) {
   svg = d3
     .select("#svg-container")
     .append("svg")
-    .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
-  // .attr("preserveAspectRatio", "xMidYMid meet")
+    .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+    .attr("preserveAspectRatio", "xMidYMid meet");
   // .style("border", "1px solid");
 
   graph = svg
@@ -163,6 +225,8 @@ function createGraph(nodes, links) {
     .attr("stroke", "#373A40")
     .attr("stroke-width", 1.5);
 
+  highlightTopTenNodes(nodes);
+
   user_node = graph
     .append("g")
     .attr("class", "nodes")
@@ -170,23 +234,85 @@ function createGraph(nodes, links) {
     .data(nodes)
     .enter()
     .append("circle")
-    .attr("class", "node")
-    .attr("r", 5)
+    .attr("class", (d) =>
+      d.connections.length >= threshold ? "node highlight" : "node"
+    )
+    .attr("r", (d) => 3 + Math.sqrt(d.connections.length))
     .attr("fill", "#DC5F00")
-    .on("mouseover", debounce(handleNodeDetails, 200))
-    .on("mouseout", handleMouseOut)
+    .on("click", debounce(handleNodeDetails, 200))
+    // .on("mouseout", handleMouseOut)
     .call(
       d3
         .drag()
         .on("start", dragStarted)
         .on("drag", dragged)
         .on("end", dragEnded)
-    );
+    )
+    .on("mouseover.tooltip", function (event, d) {
+      tooltip.transition().duration(200).style("opacity", 0.9);
+      tooltip
+        .html(
+          `User ID: ${d.id}<br>Connections: ${d.connections.length}<br>Check-in Duration: ${d.check_in_duration}<br>Check-in Frequency: ${d.check_in_frequency}`
+        )
+        .style("left", event.pageX + 20 + "px")
+        .style("top", event.pageY - 28 + "px");
+    })
+    .on("mouseout.tooltip", function () {
+      tooltip.transition().duration(500).style("opacity", 0);
+    });
+
+  graph
+    .selectAll(".node-text")
+    .data(nodes.filter((d) => d.connections.length > threshold))
+    .enter()
+    .append("text")
+    .attr("class", "node-text")
+    .attr("x", (d) => d.x)
+    .attr("y", (d) => d.y - 10)
+    .attr("text-anchor", "middle")
+    .style("font-size", "12px")
+    .style("fill", "white")
+    .text((d) => d.connections.length);
+
+  const tooltip = d3
+    .select("body")
+    .append("div")
+    .attr("class", "tooltip")
+    .style("position", "absolute")
+    .style("text-align", "center")
+    .style("width", "120px")
+    .style("height", "auto")
+    .style("padding", "8px")
+    .style("font", "12px sans-serif")
+    .style("background", "black")
+    .style("border", "0px")
+    .style("border-radius", "8px")
+    .style("pointer-events", "none")
+    .style("opacity", 0);
 
   user_node.append("title").text((d) => {
     d.id, d.connections.length;
   });
-  // createAnnotations();
+
+  const type = d3.annotationCallout;
+  const annotations = createAnnotation(nodes);
+  const makeAnnotations = d3
+    .annotation()
+    .editMode(true)
+    .notePadding(15)
+    .type(type)
+    .accessors({
+      x: (d) => d.x,
+      y: (d) => d.y,
+    })
+    .annotations(annotations);
+
+  graph
+    .append("g")
+    .attr("class", "annotation-group")
+    .style("fill", "white")
+    .style("width", "150px")
+    .call(makeAnnotations);
 }
 
 function debounce(func, wait) {
@@ -198,29 +324,13 @@ function debounce(func, wait) {
   };
 }
 
-// function createAnnotations() {
-//   annotations = allNodes.map((d) => ({
-//     note: {
-//       label: `User ID: ${d.id}\nConnections: ${d.connections.length}\nDuration: ${d.check_in_duration}\nFrequency: ${d.check_in_frequency}`,
-//       title: "User Info",
-//     },
-//     x: d.x,
-//     y: d.y,
-//     dx: 10,
-//     dy: 10,
-//   }));
-
-//   makeAnnotations = d3.annotation().annotations(annotations);
-//   svg.append("g").attr("class", "annotation-group").call(makeAnnotations);
+// function handleMouseOut() {
+//   timeoutId = setTimeout(() => {
+//     //delays the hiding
+//     document.getElementById("svg-container").style.width = "100%";
+//     document.getElementById("chart-container").style.width = "0%";
+//   }, 500);
 // }
-
-function handleMouseOut() {
-  timeoutId = setTimeout(() => {
-    //delays the hiding
-    document.getElementById("svg-container").style.width = "100%";
-    document.getElementById("chart-container").style.width = "0%";
-  }, 500);
-}
 
 function tick() {
   link
@@ -231,14 +341,10 @@ function tick() {
 
   user_node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
 
-  // if (annotations) {
-  //   annotations.forEach((annotation, i) => {
-  //     annotation.x = allNodes[i].x;
-  //     annotation.y = allNodes[i].y;
-  //   });
-
-  //   svg.select(".annotation-group").call(makeAnnotations.update);
-  // }
+  graph
+    .selectAll(".node-text")
+    .attr("x", (d) => d.x)
+    .attr("y", (d) => d.y);
 }
 
 function dragStarted(event, d) {
@@ -259,6 +365,7 @@ function dragEnded(event, d) {
 }
 
 function updateGraph() {
+  clearAnnotations();
   const connectionRange = parseFloat(
     document.getElementById("connectionRange").value
   );
@@ -319,17 +426,17 @@ function handleNodeDetails(event, d) {
     return { date: dateString, time: timeString };
   });
 
-  document.getElementById("svg-container").style.width = "70%";
-  document.getElementById("chart-container").style.width = "30%";
+  document.getElementById("svg-container").style.width = "40%";
+  document.getElementById("chart-container").style.width = "60%";
   console.log("checkInTimes", checkInTimes);
 
   d3.select("#chart-container").selectAll("svg").remove();
 
   const margin = { top: 20, right: 20, bottom: 40, left: 70 },
-    width = 500 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    width = 800 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
 
-  const x = d3.scaleBand().range([0, width]).padding(0.1);
+  const x = d3.scaleBand().range([0, width]).padding(0.3);
   const y = d3.scaleTime().range([height, 0]);
 
   const xAxis = d3.axisBottom(x);
@@ -338,21 +445,27 @@ function handleNodeDetails(event, d) {
   const svg = d3
     .select("#chart-container")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .style("display", "block")
-    .style("margin", "0, auto")
+    .attr(
+      "viewBox",
+      `0 0 ${width + margin.left + margin.right} ${
+        height + margin.top + margin.bottom
+      }`
+    )
+    .style("display", "flex")
+    .style("margin", "auto")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   svg
     .append("text")
     .attr("x", width / 2 + 10)
-    .attr("y", 25)
+    .attr("y", height + 60)
+    .attr("class", "line-chart-title")
     .attr("text-anchor", "middle")
     .style("font-size", "14px")
+    .style("border", "1px")
     .style("text-decoration", "underline")
     .style("fill", "white")
-    .text("User Check-in Time and Date");
+    .text("User Check-in Time and Dates");
 
   const parseTime = d3.timeParse("%H:%M:%S");
   const timeData = checkInTimes.map((d) => ({
@@ -379,7 +492,7 @@ function handleNodeDetails(event, d) {
 
   const line = d3
     .line()
-    .x((d) => x(d.date) + x.bandwidth() / 2)
+    .x((d) => x(d.date))
     .y((d) => y(d.time));
 
   svg
@@ -397,7 +510,7 @@ function handleNodeDetails(event, d) {
     .append("circle")
     .attr("class", "dot")
     .attr("r", 3)
-    .attr("cx", (d) => x(d.date) + x.bandwidth() / 2)
+    .attr("cx", (d) => x(d.date))
     .attr("cy", (d) => y(d.time))
     .style("fill", "#DC5F00");
 }
@@ -405,7 +518,7 @@ function handleNodeDetails(event, d) {
 //forceCollide code snippet credit to https://observablehq.com/@d3/clustered-bubbles
 //prevents nodes from overlapping
 function forceCollide() {
-  const alpha = 0.4;
+  const alpha = 0.6;
   const padding1 = 2;
   const padding2 = 3;
   let nodes;
@@ -480,6 +593,7 @@ function clusterNodes(attribute) {
       key = Math.floor(
         ((node.check_in_frequency - min) / (max - min)) * (colors.length - 1)
       );
+      console.log("frequency key", key);
     } else if (attribute === "duration") {
       key = Math.floor(
         ((node.check_in_duration - min) / (max - min)) * (colors.length - 1)
@@ -492,10 +606,11 @@ function clusterNodes(attribute) {
 
     if (!clusters[key]) {
       clusters[key] = { x: Math.random() * 1200, y: Math.random() * 700 };
+      console.log("nonkey", key);
     }
 
     node.cluster = key;
-    console.log("key: ", key);
+    console.log("node.cluster: ", node.cluster);
     node.color = colorScale(key);
   });
 
@@ -516,13 +631,13 @@ function clusterNodes(attribute) {
       // scaled = Math.sqrt(0.741) ≈ 0.861
       // radius = 5 + 0.861 * 10 ≈ 13.61
       if (attribute === "frequency") {
-        return 5 + Math.sqrt((d.check_in_frequency - min) / (max - min)) * 10;
+        return 10 + ((d.check_in_frequency - min) / (max - min)) * 20;
       } else if (attribute === "duration") {
-        return 5 + Math.sqrt((d.check_in_duration - min) / (max - min)) * 10;
+        return 10 + ((d.check_in_duration - min) / (max - min)) * 10;
       } else if (attribute === "connections") {
-        return 5 + Math.sqrt((d.connections.length - min) / (max - min)) * 10;
+        return 10 + ((d.connections.length - min) / (max - min)) * 15;
       }
-      return 5;
+      return 15;
     });
   d3.select(".links").remove(); //only want to show nodes, not links
 }
