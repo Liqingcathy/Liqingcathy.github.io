@@ -1,38 +1,187 @@
-@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Red+Hat+Display:wght@300;400;700&family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;1,300;1,400;1,600&family=Source+Sans+Pro&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Manrope:wght@200..800&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
 html {
-  background-color: black;
+  background-color: rgb(13, 14, 20);
   color: #ffff;
   font-family: "Poppins", sans-serif;
   margin: 5px;
-  padding: 2em;
+  padding: 0 5em;
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h5 {
+  text-decoration: none;
+}
+
+a {
+  color: white;
+}
+
+.node-text {
+  fill: #a70003;
+}
+
+.annotated_node {
+  color: white;
+}
+
+.node:hover {
+  cursor: pointer;
+  filter: drop-shadow(0 0 5px #a70003);
+}
+
+.instruction-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.instruction-intro-illus-wrapper {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid rgb(184, 150, 150); */
+  width: 50%;
+}
+
+.instruction-illustration {
+  padding: 30px;
+  height: 70px;
+  /* justify-content: space-between; */
+  gap: 30px;
+  display: flex;
+}
+
+.instruction span {
+  margin-right: 2rem;
+}
+
+.instruction-paragraph {
+  /* border: 1px solid rgb(184, 150, 150); */
+  text-align:justify;
+  height: 70px;
+  width: 50%;
+  padding: 0;
+}
+
+#scene-desc {
+  color: #BDACA9;
+}
+
+.connection-svg,
+.user-svg,
+.color-svg {
+  padding-top: -2px;
+  height: 30%;
+  margin: 0 auto;
+}
+
+.connection-svg {
+  width: 200px;
+}
+
+.cluster-colors-ul {
+  margin-top: -1px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 200px;
+  height: 20px;
+}
+
+#first-color {
+  margin-left: -50px;
+}
+
+.color-text {
+  margin-left: -4px;
+  margin-top: 20px;
+  width: 300px;
+  height: 20px;
+}
+
+.svg-chart-wrapper {
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.svg-chart-wrapper .scene {
+  margin: auto;
+  width: 100%;
+  padding: 10px;
+}
+
+.filter-wrapper {
+  position: relative;
+  width: 60%;
+  bottom: -60px;
+  margin-left: -20px;
+  padding: 10px;
+}
+
+.scene-one-filter label {
+  margin-left: 4px;
+}
+
+#connectionValue,
+#durationValue,
+#frequencyValue {
+  margin-right: 10px;
+  top: -20px;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  border-radius: 15px;
+  height: 10px;
+  width: 100px;
+  border: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 15px;
+  width: 15px;
+  background-color: #dc5f00;
+  border-radius: 50%;
+  border: none;
+  transition: 0.2s ease-in-out;
+}
+
+.scene-two-btn {
+  text-align: right;
 }
 
 #svg-container {
   width: 100%;
-  height: 90vh;
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid white;
+  border: 1px solid gray;
 }
 
 #chart-container {
-  height: 90vh;
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid white;
+  border: 1px solid gray;
+}
+
+.flex-charts {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
 .annotation-group {
-}
-
-.svg-chart-wrapper {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100vh;
 }
 
 svg {
@@ -48,11 +197,25 @@ svg {
   /* filter: drop-shadow(0 0 5px #ffd700); */
 }
 
-.annotated_node {
+#reset-btn {
+  background-color: #dc5f00;
   color: white;
 }
 
-.node:hover {
+#duration-btn,
+#freq-btn,
+#connect-btn,
+#reset-btn {
+  border-radius: 0.4;
+  border: none;
   cursor: pointer;
-  filter: drop-shadow(0 0 5px #A70003);
+  padding: 8px;
+}
+
+#duration-btn:hover,
+#freq-btn:hover,
+#connect-btn:hover,
+#reset-btn:hover {
+  background-color: #88281a;
+  color: white;
 }
