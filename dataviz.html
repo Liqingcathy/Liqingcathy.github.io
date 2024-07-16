@@ -5,23 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
     <link href="/style/data.css" rel="stylesheet" />
-    <title>Narrative Visualization</title>
+    <title>D3 Data Visualization</title>
   </head>
   <body>
-    <h1>Narrative Visualization Project</h1>
+    <h1><a href="/dataviz.html">Narrative Visualization Project</a></h1>
     <div class="instruction-wrapper">
     <div class="instruction-intro-illus-wrapper">
-      <div>
-    <h5>
-      <a href="https://www.gowalla.com/">"Gowalla"</a>is an app that introduces
-      new way to keep up with an user's friends in the real world. </h5></div>
-      <div class="instruction-illustration">
+    <div>
+      <p class="intro-text">
+        <b><a href="https://www.gowalla.com/">"Gowalla"</a></b>is an app that introduces
+            new way to keep up with an user's friends in the real world. 
+      </p>
+    </div>
+    <div class="instruction-illustration">
+      <ul class="user-illus-ul">
+        <span class="users-span">
+          <svg class="user-svg" width="10" height="20">            
+          <circle cx="10" cy="10" r="8" fill="#ffa500" /></svg>
+          <p>Active User</p></span>
         <span>
-          <svg class="user-svg" width="10" height="20">
-            <circle cx="10" cy="10" r="8" fill="#DC5F00" /></svg
-        ><p>User</p></span>
-        <span
-          >
+        <span class="users-span">
+            <svg class="user-svg" width="10" height="20">            
+            <circle cx="10" cy="10" r="6" fill="#DC5F00" /></svg>
+            <p>User</p>
+          </span>
+      </ul>
+        <span>
           <svg class="connection-svg" width="100" height="10">
             <circle cx="10" cy="10" r="6" fill="#DC5F00" />
             <line
@@ -37,23 +46,29 @@
         <p>User Social Connection</p></span>
         <span class="color-svg">
         <ul class="cluster-colors-ul">
-          <svg id="first-color" width="20" height="10"><circle cx="10" cy="10" r="6" fill="#371610" /></svg>
-          <svg width="20" height="10"><circle cx="10" cy="10" r="6" fill="#88281A" /></svg>
-          <svg width="20" height="10"><circle cx="10" cy="10" r="6" fill="#EC4931" /></svg>
-          <svg width="20" height="10"><circle cx="10" cy="10" r="6" fill="#BDACA9" /></svg>
+          <svg id="first-color" width="20" height="10"><circle cx="10" cy="10" r="5" fill="#371610" /></svg>
+          <svg width="20" height="10"><circle cx="10" cy="10" r="5" fill="#88281A" /></svg>
+          <svg width="20" height="10"><circle cx="10" cy="10" r="5" fill="#EC4931" /></svg>
+          <svg width="20" height="10"><circle cx="10" cy="10" r="5" fill="#BDACA9" /></svg>
         </ul>
-          <p class="color-text">degrees of {connection & time} (cluster)</p>
+          <p class="color-text">degrees of cluster groups</p>
         </span>
         </div>
+        <p class="intro-text"><b>Objective:</b><br/>This visualization is designed to help Gowalla APP understand user activities and identify key influencers, providing valuable insights to inform business initiatives.</p>
         </div>
-        <div class="instruction-paragraph">
-            <h5><b>Objective:</b> Analyze user behaviors through social 
-            connections, check-in duration and frequency to derive active users 
-            insights to better understand "Gowalla" application.</h5>
-            <h5 id="scene-desc">Scene{i} If you click on a star you will select & fix that person. By clicking on another star the visual will show you the shortest path between the two (although sometimes multiple shortest paths exist. The algorithm will then show one of these). 
-              <br/> To clear the fix on the first person, click anywhere that's not a circle.</h5>
+        <div class="instruction-paragraph"> 
+          <p class="intro-text"><b><a href="https://snap.stanford.edu/data/loc-Gowalla.html">Original Data</a>:</b> 
+            The undirected friendship network graph consists of 196,591 nodes and 950,327 edges. 
+            There are total 6,442,890 check-ins over period of Feb. 2009 - Oct. 2010 and clustering coefficient of 0.2367.
+            <b>Sample data:</b> Processed data and extracted 100 sample users data with 0.4891 clustering coefficient.</p>
+            <p id="scene-desc"><b>Scene Description:</b> <br/>
+            The social network force-directed graph visualizes user behaviors and connections. 
+            The graph dynamically updates as you drag nodes, making it easy to see relationships and interactions. 
+            This visualization offers an intuitive and interactive way to understand the social structure and key 
+            influencers within the network, helping identify patterns and insights about user interactions and engagement.</p>
+          <p class="scene-note">Explore more using filters, clustering buttons, dragging a node and clicking on nodes, and resetting the graph as needed.</p>
        </div>
-       </div>
+      </div>
     <div>
     <section>
       <div class="svg-chart-wrapper">
@@ -68,7 +83,6 @@
               min="1"
               max="64"
               value="0"
-              oninput="updateGraph()"
             />
             <span id="connectionValue">0</span>
           </span>
@@ -81,7 +95,6 @@
               min="0"
               max="9684"
               value="0"
-              oninput="updateGraph()"
             />
             <span id="durationValue">0</span>
           </span>
@@ -94,17 +107,16 @@
               min="1"
               max="2025"
               value="1"
-              oninput="updateGraph()"
             />
             <span id="frequencyValue">1</span>
           </span>
           </div>
           </div>
           <div class="scene-two-btn scene">
+            <span><button id="reset-btn">Reset Graph</button></span>
             <span><button id="connect-btn">cluster by connection</button></span>
             <span><button id="duration-btn">cluster by duration</button></span>
             <span><button id="freq-btn">cluster by frequency</button></span>
-            <span><button id="reset-btn">Reset Graph</button></span>
           </div>
           <div class="flex-charts scene">
           <div id="svg-container"></div>

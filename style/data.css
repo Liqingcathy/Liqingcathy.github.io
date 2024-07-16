@@ -12,10 +12,7 @@ html {
   font-style: normal;
 }
 
-h1 a {
-  text-decoration: none;
-}
-
+h1 a,
 h5 {
   text-decoration: none;
 }
@@ -25,7 +22,7 @@ a {
 }
 
 a:hover {
-  color: #88281A;
+  color: #88281a;
 }
 
 .node-text {
@@ -100,7 +97,7 @@ a:hover {
 }
 
 .intro-text a {
-  color: #88281A;
+  color: #88281a;
 }
 
 #scene-desc {
@@ -111,12 +108,13 @@ a:hover {
 
 .scene-note {
   font-size: smaller;
-  color:  rgb(219, 218, 218);
+  color: rgb(219, 218, 218);
   margin-top: -10px;
 }
 
-.intro-text b, #scene-desc b{
-  color: #88281A;
+.intro-text b,
+#scene-desc b {
+  color: #88281a;
 }
 
 .connection-svg,
@@ -129,7 +127,7 @@ a:hover {
 
 .connection-svg,
 .user-svg {
-  fill: #FD8508;
+  fill: #fd8508;
   stroke-width: 2.5px;
   filter: drop-shadow(0 0 10px #ffd700);
 }
@@ -167,7 +165,6 @@ a:hover {
 .svg-chart-wrapper .scene {
   margin: auto;
   width: 100%;
-  /* padding: 10px; */
 }
 
 .filter-wrapper {
@@ -196,7 +193,7 @@ a:hover {
 }
 
 .node.highlight {
-  fill: #FD8508;
+  fill: #fd8508;
   stroke-width: 2.5px;
   filter: drop-shadow(0 0 10px #ffd700);
 }
@@ -291,3 +288,92 @@ svg {
   color: white;
 }
 
+/* Media queries for mobile responsiveness */
+@media (max-width: 768px) {
+  html {
+    padding: 0 1em;
+  }
+
+  .instruction-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .instruction-intro-illus-wrapper,
+  .instruction-paragraph {
+    width: 100%;
+  }
+
+  .instruction-illustration {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .user-illus-ul,
+  .cluster-colors-ul,
+  .connection-svg,
+  .user-svg,
+  .color-svg {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: auto;
+    margin: 10px 0;
+  }
+
+  .instruction-illustration span,
+  .users-span svg {
+    display: flex;
+    width: 70%;
+  }
+
+  .color-text {
+    margin: 20px;
+    width: 100%;
+  }
+
+  .users-span > *:nth-child(1) {
+    margin-left: -40px;
+  }
+
+  .users-span p {
+    margin-left: -60px;
+    width: 30%;
+  }
+
+  .cluster-colors-ul {
+    height: 20px;
+    width: 300px;
+    margin-left: 10px;
+  }
+
+  .instruction-intro-illus-wrapper > *:nth-child(3) {
+    margin-top: 25%;
+  }
+
+  .scene-one-filter .filter-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .svg-chart-wrapper {
+    padding-top: 30%;
+  }
+
+  #svg-container,
+  #chart-container {
+    height: 80vh;
+  }
+
+  #duration-btn,
+  #freq-btn,
+  #connect-btn,
+  #reset-btn,
+  #reset-btn-filter {
+    border: none;
+    cursor: pointer;
+    width: 40%;
+  }
+}
