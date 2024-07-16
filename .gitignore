@@ -10,3 +10,4 @@ data/combined_user_data.json
 node_modules
 user_connection.json
 package-lock.json
+myenv
