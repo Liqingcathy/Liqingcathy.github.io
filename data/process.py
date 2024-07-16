@@ -2,43 +2,40 @@ import csv
 import json
 from collections import defaultdict
 import random
+import networkx as nx
 
-# user_total = defaultdict(lambda: {'check_in_time': [], 'location': [], 'location_id': [], 'connections': []})
-# with open('user_total_checkin.csv', 'r') as file:
-#     reader = csv.DictReader(file)
-#     for row in reader:
-#         user_id = int(row['user'])
-#         user_total[user_id]['user_id'] = user_id
-#         user_total[user_id]['check_in_time'].append(row['check_in_time'])
-#         user_total[user_id]['location'].append({
-#             'latitude': float(row['latitude']),
-#             'longitude': float(row['longitude'])
-#         })
-#         user_total[user_id]['location_id'].append(int(row['location_id']))
+"""Initial data process: Read and reformat the data structure and save to combined user data json file from original csv file"""
+user_total = defaultdict(lambda: {'check_in_time': [], 'location': [], 'location_id': [], 'connections': []})
+with open('user_total_checkin.csv', 'r') as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        user_id = int(row['user'])
+        user_total[user_id]['user_id'] = user_id
+        user_total[user_id]['check_in_time'].append(row['check_in_time'])
+        user_total[user_id]['location'].append({
+            'latitude': float(row['latitude']),
+            'longitude': float(row['longitude'])
+        })
+        user_total[user_id]['location_id'].append(int(row['location_id']))
 
-# with open('user_edges.csv', 'r') as file:
-#     reader = csv.DictReader(file)
-#     for row in reader:
-#         user_source = int(row['user_source'])
-#         user_target = int(row['user_target'])
-#         user_total[user_source]['connections'].append(user_target)
+with open('user_edges.csv', 'r') as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        user_source = int(row['user_source'])
+        user_target = int(row['user_target'])
+        user_total[user_source]['connections'].append(user_target)
 
-# result = list(user_total.values())
+result = list(user_total.values())
 
-# with open('combined_user_data.json', 'w') as file:
-#     json.dump(result, file, indent=4)
-
-import json
-import random
+with open('combined_user_data.json', 'w') as file:
+    json.dump(result, file, indent=4)
 
 def sample_data_with_connections(input_file, output_file, sample_size):
-    # Load the combined data from the JSON file
+    """Second data process: Extract 100 sampled data with top connections and valid user id from combined user data json file"""
     with open(input_file, 'r') as f:
         combined_data = json.load(f)
 
-    # Filter out nodes that have no connections and ensure they have 'user_id'
     nodes_with_connections = [node for node in combined_data if node.get('connections') and node.get('user_id')]
-
     if len(nodes_with_connections) < sample_size:
         raise ValueError("Not enough nodes with connections to sample the requested amount.")
     
@@ -52,10 +49,9 @@ def sample_data_with_connections(input_file, output_file, sample_size):
                 sampled_nodes.append(nodes[i])
         return sampled_nodes[:sample_size]
 
-    # Get a sample ensuring a variety of connection counts
     sampled_nodes = get_sample_with_variety(nodes_with_connections, sample_size)
 
-    # Sample nodes with connections
+    #Sample nodes with connections
     #sampled_nodes = random.sample(nodes_with_connections[:2*sample_size], sample_size)
 
     # Ensure that all connections in the sampled nodes are within the sample
@@ -85,17 +81,28 @@ def sample_data_with_connections(input_file, output_file, sample_size):
                 valid_links.append({'source': node['user_id'], 'target': conn})
 
     # Save the sampled data to a new JSON file
-    with open(output_file, 'w') as f:
-        json.dump(sampled_nodes, f, indent=4)
+    #with open(output_file, 'w') as f:
+    #    json.dump(sampled_nodes, f, indent=4)
 
-    print(f"Total nodes: {len(sampled_nodes)}")
-    print(f"Total links: {len(valid_links)}")
-
-# Define input and output file names
 input_file = 'combined_user_data.json'
 output_file = 'sampled_combined_user_data.json'
 
-# Sample 100 nodes with connections
+# Sample 100 nodes with connections due to large number affect graph rendering on the page
 sample_size = 100
-
 sample_data_with_connections(input_file, output_file, sample_size)
+
+def getClusterCoefficient():
+    """Data process: Calculate clustering coefficients from the sampled 100 nodes with higher connection density"""
+    with open("sampled_combined_user_data.json", 'r') as f:
+        combined_data = json.load(f)
+        Graph = nx.Graph()
+        for node in combined_data:
+            Graph.add_node(node['user_id'])
+            for conn in node['connections']:
+                Graph.add_edge(node['user_id'], conn)
+        
+        cluster_coefficients = nx.clustering(Graph)
+        avg_cluster_coefficient = sum(cluster_coefficients.values()) / len(cluster_coefficients)
+        print(f"Average clustering coefficient: {avg_cluster_coefficient}") #48.909
+
+getClusterCoefficient()
