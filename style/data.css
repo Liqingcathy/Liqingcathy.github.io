@@ -76,8 +76,10 @@ a:hover {
 }
 
 .users-span p {
-  width: 80px;
+  width: 50px;
   margin-left: -2rem;
+  /* border: 1px solid darkcyan; */
+
 }
 
 .instruction span {
@@ -169,8 +171,8 @@ a:hover {
 
 .filter-wrapper {
   position: relative;
-  width: 20%;
-  bottom: -120px;
+  width: 218%;
+  bottom: -105px;
   margin-left: 0px;
   display: flex;
   flex-direction: column;
