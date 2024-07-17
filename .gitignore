@@ -3,3 +3,11 @@ projects.html
 .vscode
 .DS_Store
 icons.css
+data/sampled_combined_user_data.json
+data/user_edges.csv
+data/user_total_checkin.csv
+data/combined_user_data.json
+node_modules
+user_connection.json
+package-lock.json
+myenv
