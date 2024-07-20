@@ -71,11 +71,11 @@ section .various-skills {
   flex-wrap: wrap;
   gap: 3px;
   margin: 3rem 3rem;
-  font-size: 1.2vw;
+  font-size: 1vw;
 }
 
 .various-skills button {
-  width: 6rem;
+  width: 7rem;
   padding: 5px;
   background-color: rgb(227, 230, 231);
   border-radius: 2em;
@@ -122,24 +122,6 @@ section .various-skills {
   padding-top: 2rem;
 }
 
-.data-viz-wrapper {
-  /* border: 1px solid red;
-  display: flex; */
-}
-
-.gowalla {
-  /* width: 700px;
-  height: 400px;
-  display: flex; */
-  
-}
-
-.learn-more {
-  /* display: flex;
-  flex-direction: column;
-  border: 1px solid red; */
-}
-
 #project-shot:hover {
   transform: scale(1.05);
 }
@@ -155,7 +137,7 @@ section .various-skills {
   font-size: x-small;
 }
 
-#climatebase-desc {
+/* #climatebase-desc {
   position: absolute;
   display: block;
   top: 29rem;
@@ -163,7 +145,7 @@ section .various-skills {
   height: fit-content;
   width: 90%;
   font-size: small;
-}
+} */
 
 #sortbtn {
   width: 6rem;
@@ -190,11 +172,17 @@ section .various-skills {
 
   .various-skills button {
     margin: 0 auto;
+    font-size: 1.6vw;
   }
 
+footer .year {
+  text-wrap: nowrap;
+}
+
+/* 
   #climatebase-desc {
     display: none;
-  }
+  } */
 }
 
 @keyframes article-load {

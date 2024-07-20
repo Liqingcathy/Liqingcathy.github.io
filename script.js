@@ -31,25 +31,25 @@ const addClass = (domElement, elementClass, option) => {
   elementClassName1 = domElement.className.split(" ");
   elementClassName2 = elementClass.split(" ");
 
-  if (option === "Climatebase".toLowerCase()) {
-    if (!paragraphAdded) {
-      textPara = document.createElement("div");
-      textPara.id = "climatebase-desc";
-      const text = `
-                    Thrived as a proactive developer, driving collaboration on projects encompassing MVP 
-                    ideation & design using cutting-edge tools like FigJam and Figma, alongside dynamic 
-                    web app development. Partnered with industry UX researchers, product managers, software engineers, and an SEO expert.
+  // if (option === "Climatebase".toLowerCase()) {
+  //   if (!paragraphAdded) {
+  //     textPara = document.createElement("div");
+  //     textPara.id = "climatebase-desc";
+  //     const text = `
+  //                   Thrived as a proactive developer, driving collaboration on projects encompassing MVP 
+  //                   ideation & design using cutting-edge tools like FigJam and Figma, alongside dynamic 
+  //                   web app development. Partnered with industry UX researchers, product managers, software engineers, and an SEO expert.
 
-                    `;
-      const node = document.createTextNode(text);
-      textPara.appendChild(node);
-      domElement.parentNode.insertBefore(
-        textPara,
-        domElement.parentNode.firstChild
-      );
-      paragraphAdded = true;
-    }
-  }
+  //                   `;
+  //     const node = document.createTextNode(text);
+  //     textPara.appendChild(node);
+  //     domElement.parentNode.insertBefore(
+  //       textPara,
+  //       domElement.parentNode.firstChild
+  //     );
+  //     paragraphAdded = true;
+  //   }
+  // }
 
   for (let i = 0; i < elementClassName2.length; i++) {
     if (elementClassName1.indexOf(elementClassName2[i]) == -1) {
