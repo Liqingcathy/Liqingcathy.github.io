@@ -303,16 +303,17 @@ footer div {
 }
 
 footer a {
-  color: #fd8508;
+  color: #88281a;
+  text-decoration: none;
 }
 
 footer a:hover {
-  color: #88281a;
+  color: #fefefe;
+}
+footer div span a:nth-child(2) {
+  gap: 5px;
 }
 
-footer div span a:first-child {
-  margin-right: 10px;
-}
 
 /* Media queries for mobile responsiveness */
 @media (max-width: 768px) {
