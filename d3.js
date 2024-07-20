@@ -595,7 +595,7 @@ function calculatePeakCheckInTimes(checkInTimes) {
  */
 function handleNodeDetails(event, d) {
   const sceneText =
-    "<p>This time/date line chart illustrate an user's check-in activity. The chart highlights the times and dates when the user is most frequently checking in, showing trends and changes over unique date periods. This scene3 helps identify when users are most actively engaging with the application, providing valuable demographic insights for targeted data analysis. By examining these patterns, stakeholders can better understand user behavior and optimize strategies to increase engagement during peak activity times.</p>";
+    "<p><b>Node Details</b> <br/>This time/date line chart illustrate an user's check-in activity. The chart highlights the times and dates when the user is most frequently checking in, showing trends and changes over unique date periods. This scene3 helps identify when users are most actively engaging with the application, providing valuable demographic insights for targeted data analysis. By examining these patterns, stakeholders can better understand user behavior and optimize strategies to increase engagement during peak activity times.</p>";
   changeSceneText(sceneText);
 
   clearTimeout(timeoutId);

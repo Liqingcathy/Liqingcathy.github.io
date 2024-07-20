@@ -79,7 +79,6 @@ a:hover {
   width: 50px;
   margin-left: -2rem;
   /* border: 1px solid darkcyan; */
-
 }
 
 .instruction span {
@@ -102,6 +101,10 @@ a:hover {
   color: #88281a;
 }
 
+.intro-text a:hover {
+  color: white;
+}
+
 #scene-desc {
   color: #a1a6a6;
   line-height: 1.5;
@@ -110,7 +113,7 @@ a:hover {
 
 .scene-note {
   font-size: smaller;
-  color: rgb(219, 218, 218);
+  color: #c4caca;
   margin-top: -10px;
 }
 
@@ -172,7 +175,7 @@ a:hover {
 .filter-wrapper {
   position: relative;
   width: 218%;
-  bottom: -105px;
+  bottom: -110px;
   margin-left: 0px;
   display: flex;
   flex-direction: column;
@@ -289,6 +292,28 @@ svg {
   background-color: #371610;
   color: white;
 }
+footer div {
+  display: flex;
+  justify-content: space-between;
+  font-size: smaller;
+}
+
+.ft-right {
+  text-align: right;
+}
+
+footer a {
+  color: #88281a;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #fefefe;
+}
+footer div span a:nth-child(2) {
+  gap: 5px;
+}
+
 
 /* Media queries for mobile responsiveness */
 @media (max-width: 768px) {
