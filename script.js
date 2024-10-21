@@ -8,6 +8,20 @@ window.onload = () => {
 let paragraphAdded = false;
 let textPara = null;
 
+fetch("../../nav.html")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.text();
+  })
+  .then((data) => {
+    document.querySelector("nav").innerHTML = data;
+  })
+  .catch((error) => {
+    console.error("Error fetching nav.html:", error);
+  });
+
 const filterBySkills = (option) => {
   let filteredSkillList;
   filteredSkillList = Array.from(document.getElementsByClassName("filterby"));
@@ -36,8 +50,8 @@ const addClass = (domElement, elementClass, option) => {
   //     textPara = document.createElement("div");
   //     textPara.id = "climatebase-desc";
   //     const text = `
-  //                   Thrived as a proactive developer, driving collaboration on projects encompassing MVP 
-  //                   ideation & design using cutting-edge tools like FigJam and Figma, alongside dynamic 
+  //                   Thrived as a proactive developer, driving collaboration on projects encompassing MVP
+  //                   ideation & design using cutting-edge tools like FigJam and Figma, alongside dynamic
   //                   web app development. Partnered with industry UX researchers, product managers, software engineers, and an SEO expert.
 
   //                   `;
@@ -94,3 +108,12 @@ const sortByTime = () => {
 
   projectWithDates.forEach((item) => ulProject.appendChild(item.element));
 };
+
+function toggleVisibility(id) {
+  var content = document.getElementById(id);
+  if (content.style.display === "none") {
+    content.style.display = "block";
+  } else {
+    content.style.display = "none";
+  }
+}

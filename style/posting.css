@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Manrope:wght@200..800&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+
+article h2 {
+  margin: auto;
+}
+
+article {
+  margin-top: 10%;
+}
+
+.note {
+  color: #6d7a84;
+  list-style: none;
+}
+
+h3.sub-title {
+  background-color: #d2dcde;
+  border-radius: 2px;
+  width: 50%;
+}
+
+h3.sub-title-wider {
+  width: 70%;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  color: #555;
+  border-bottom: 1px dashed gray;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 400px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -125px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: small;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 30%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #7b7979 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+blockquote {
+  border: 2px solid #d2dcde;
+  border-radius: 4px;
+  padding: 10px;
+  width: 70%;
+}
+
+.corpus {
+  color: #6d7a84;
+}
+
+.toggle-content {
+  display: none;
+  padding: 10px;
+  margin: 10px 0;
+}
+.toggle-btn {
+  cursor: pointer;
+  color: #007bff;
+  text-decoration: underline;
+  margin: 5px;
+}
+
+.latex_formular {
+  text-align: center;
+}
+
+#important {
+  color: #ad3104;
+}
+
+pre {
+  border: 2px solid #d2dcde;
+  border-radius: 4px;
+  width: 90%;
+}
+
+.toc li a{
+  text-decoration: underline;
+  color: gray;
+}
+
+hr {
+  margin-top: 5%;
+}

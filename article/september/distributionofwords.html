@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/style/blog.css" rel="stylesheet" />
+    <link href="/style/home_style.css" rel="stylesheet" />
+    <link href="/style/style.css" rel="stylesheet" />
+    <link href="/style/posting.css" rel="stylesheet" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <title>An Introduction to NLP: Words, Language Models, and N-grams</title>
+  </head>
+
+  <body>
+    <nav></nav>
+    <article>
+      <h2>
+        An Introduction to NLP: Words, Language Models, Train and Test N-grams
+      </h2>
+      <h3>Table of Contents</h3>
+      <ol class="toc">
+        <li><a href="#nlp-basic">NLP Basic</a></li>
+        <li>
+          <a href="#n-gram">N-Gram Models</a>
+        </li>
+        <li>
+          <a href="#mle">Maximum Likelihood Estimation (MLE)</a>
+        </li>
+        <li>
+          <a href="#perplexity">Evaluating Language Models - Perplexity</a>
+        </li>
+        <li>
+          <a href="#training">Training Models</a>
+        </li>
+        <li>
+          <a href="#smoothing">Smoothing Techniques</a>
+        </li>
+      </ol>
+      <section>
+        <p>
+          In this post, we’ll dive into the fundamental building blocks of
+          NLP—focusing on words, language models, N-grams, and how they
+          contribute to machine translations.
+        </p>
+
+        <h3 class="sub-title" id="#nlp-basic">Understanding NLP Basics</h3>
+        <p>
+          Before diving into advanced topics, it’s crucial to understand the
+          foundational steps of NLP, which involve processing raw text into
+          structured data that machines can interpret. Some of the key tasks
+          include:
+        </p>
+        <ul>
+          <li>
+            <b>Tokenizing Words:</b> This includes regular expression
+            tokenization in N-grams.
+          </li>
+          <li>
+            <b>Normalization:</b> Standardizing words into a consistent format,
+            such as converting to lowercase or performing spell checks.
+          </li>
+          <li>
+            <b>Sentiment Analysis:</b> Analyzing the emotional tone behind the
+            words.
+          </li>
+          <li class="note">
+            Note: One of the key tokenization methods in modern NLP is
+            <b>Byte Pair Encoding (BPE)</b>, a sub-word tokenization algorithm
+            that efficiently handles rare and unknown words by splitting them
+            into subword units. This method is widely used in large language
+            models like GPT and BERT. We will cover a bit of BERT in later
+            postings.
+          </li>
+        </ul>
+        <h3 class="sub-title">Modeling Words in NLP</h3>
+        <p>
+          Words are the smallest meaningful units in NLP. When working with
+          words computationally, we convert them into machine-readable formats
+          like vectors or embeddings. One important concept is word
+          distribution, which describes how frequently words appear in a given
+          context. These distributions are crucial for building language models
+          that define probabilities over word sequences.
+        </p>
+
+        <h3 class="sub-title" id="n-gram">Language Models (LMs) and N-grams</h3>
+        <p>
+          A language model assigns probabilities to sequences of words. The
+          simplest models are based on <b>N-grams</b>, where N refers to the
+          number of words in the sequence:
+        </p>
+        <ul>
+          <li>
+            <b>Unigram Models (N=1):</b> Predict the probability of each word
+            independently of its context.
+          </li>
+          <li>
+            <b>Bigram Models (N=2):</b> Predict the next word based on the
+            previous word.
+          </li>
+          <li>
+            <b>Trigram Models (N=3):</b> Predict the next word based on the
+            previous two words.
+          </li>
+        </ul>
+
+        <p>
+          Now, let's consider the following sentences of a partial medical
+          <span class="tooltip">
+            corpus
+            <span class="tooltiptext">
+              A large collection of natural language text that is used for
+              training machine learning and AI systems in NLP.
+            </span>
+          </span>
+          which is important in NLP.
+        </p>
+
+        <ul class="corpus">
+          <li>"The patient was diagnosed with acute bronchitis."</li>
+          <li>"Symptoms include fever, cough, and shortness of breath."</li>
+          <li>"The prescribed treatment is a 5-day course of antibiotics."</li>
+        </ul>
+        <!-- Unigram Section -->
+        <h3>Unigram (1-word sequences)</h3>
+        <p>
+          In a unigram model, each word is predicted based solely on its
+          frequency in the corpus, ignoring the order or context of surrounding
+          words.
+          <span class="toggle-btn" onclick="toggleVisibility('unigram')"
+            >Show/Hide Unigram Example</span
+          >
+        </p>
+        <div id="unigram" class="toggle-content">
+          Example corpus:
+          <ul>
+            <li>
+              "The", "patient", "was", "diagnosed", "with", "acute",
+              "bronchitis"
+            </li>
+            <li>
+              "Symptoms", "include", "fever", "cough", "and", "shortness", "of",
+              "breath"
+            </li>
+            <li>
+              "The", "prescribed", "treatment", "is", "a", "5-day", "course",
+              "of", "antibiotics"
+            </li>
+            <li>
+              "The", "patient", "should", "follow", "up", "in", "one", "week",
+              "for", "evaluation"
+            </li>
+            <li>
+              "No", "allergic", "reactions", "to", "the", "medication", "were",
+              "reported"
+            </li>
+          </ul>
+          <p>Total number of words in the corpus: 42</p>
+          <p>Generated sentence: "The patient of patient of"</p>
+        </div>
+
+        <!-- Bigram Section -->
+        <h3>Bigram (2-word adjacent sequences)</h3>
+        <p>
+          In a bigram model, the probability of a word depends on the preceding
+          word.
+          <span class="toggle-btn" onclick="toggleVisibility('bigram')"
+            >Show/Hide Bigram Example</span
+          >
+        </p>
+
+        <div id="bigram" class="toggle-content">
+          Example bigrams from the corpus:
+          <ul>
+            <li>
+              "The patient", "patient was", "was diagnosed", "diagnosed with",
+              "with acute", "acute bronchitis"
+            </li>
+            <li>
+              "Symptoms include", "include fever", "fever cough", "cough and",
+              "and shortness", "shortness of", "of breath"
+            </li>
+            <li>
+              "The prescribed", "prescribed treatment", "treatment is", "is a",
+              "a 5-day", "5-day course", "course of", "of antibiotics"
+            </li>
+            <li>
+              "The patient", "patient should", "should follow", "follow up", "up
+              in", "in one", "one week", "week for", "for evaluation"
+            </li>
+          </ul>
+          <h4>Bigram Probabilities</h4>
+          <ul>
+            <li>P(patient | The) = 0.67</li>
+            <li>P(was | patient) = 0.5</li>
+            <li>P(diagnosed | was) = 1.0</li>
+            <li>P(with | diagnosed) = 1.0</li>
+            <li>P(acute | with) = 1.0</li>
+            <li>P(bronchitis | acute) = 1.0</li>
+          </ul>
+          <p>
+            Generated sentence: "The patient was diagnosed with acute
+            bronchitis."
+          </p>
+        </div>
+
+        <!-- Trigram Section -->
+        <h3>Trigram (3-word adjacent sequences)</h3>
+        <p>
+          In a trigram model, each word depends on the previous two words.
+          <span class="toggle-btn" onclick="toggleVisibility('trigram')"
+            >Show/Hide Trigram Example</span
+          >
+        </p>
+
+        <div id="trigram" class="toggle-content">
+          Example trigrams from the corpus:
+          <ul>
+            <li>
+              "The patient was", "patient was diagnosed", "was diagnosed with",
+              "diagnosed with acute", "with acute bronchitis"
+            </li>
+            <li>
+              "Symptoms include fever", "include fever cough", "fever cough
+              and", "cough and shortness", "and shortness of", "shortness of
+              breath"
+            </li>
+            <li>
+              "The prescribed treatment", "prescribed treatment is", "treatment
+              is a", "is a 5-day", "5-day course of", "course of antibiotics"
+            </li>
+          </ul>
+          <h4>Trigram Probabilities</h4>
+          <ul>
+            <li>P(diagnosed | patient, was) = 1.0</li>
+            <li>P(with | diagnosed, was) = 1.0</li>
+            <li>P(acute | with, diagnosed) = 1.0</li>
+            <li>P(bronchitis | acute, with) = 1.0</li>
+          </ul>
+          <p>
+            Generated sentence: "The patient was diagnosed with acute
+            bronchitis."
+          </p>
+        </div>
+
+        <!-- MLE -->
+        <h3 class="sub-title sub-title-wider" id="mle">
+          Maximum Likelihood Estimation (MLE) and Sentence Generation
+        </h3>
+
+        <p>
+          After counting the occurrences of words and sequences, we can use the
+          <strong>Maximum Likelihood Estimation (MLE)</strong> approach to
+          generate sentences based on the observed probabilities in the corpus.
+          In MLE, the probability of each word (or sequence of words in the case
+          of bigrams and trigrams) is estimated based on its frequency in the
+          training corpus.
+        </p>
+        <p>
+          For example, in the unigram model, each word is predicted
+          independently of other words, based solely on its frequency in the
+          corpus. However, this often leads to incoherent sentences because the
+          model does not consider word order. For example, an MLE-generated
+          sentence from a unigram model might look like this:
+        </p>
+        <blockquote>"The patient of patient of"</blockquote>
+        <p>
+          This sentence is grammatically incorrect because the unigram model
+          does not capture dependencies between words.
+        </p>
+
+        <p>
+          To improve coherence, <strong>bigram</strong> and
+          <strong>trigram</strong> models are used. These models take into
+          account the fixed-size of dependencies between words by conditioning
+          the probability of a word on the preceding word(s).
+        </p>
+
+        <ul>
+          <li>
+            In the <strong>bigram model</strong>, the probability of a word
+            depends on the previous word:
+          </li>
+        </ul>
+
+        <p class="latex_formular">
+          \(P(w_i | w_{i-1}) = \frac{\text{Count}(w_{i-1},
+          w_i)}{\text{Count}(w_{i-1})}\)
+        </p>
+
+        <ul>
+          <li>
+            In the <strong>trigram model</strong>, the probability of a word
+            depends on the two previous words:
+          </li>
+        </ul>
+
+        <p class="latex_formular">
+          \(P(w_i | w_{i-2}, w_{i-1}) = \frac{\text{Count}(w_{i-2}, w_{i-1},
+          w_i)}{\text{Count}(w_{i-2}, w_{i-1})}\)
+        </p>
+        <p>
+          In our above n-gram examples, the bigram and trigram model considers
+          the dependencies between adjacent words, making the sentence more
+          coherent than the unigram model.
+        </p>
+        <p>
+          Currently, the trigram model in our example generates the same
+          sentence as the bigram model, such as:
+        </p>
+        <blockquote>
+          "The patient was diagnosed with acute bronchitis."
+        </blockquote>
+        <p>
+          This can happen when the corpus is relatively simple, and both bigram
+          and trigram models end up predicting similar word sequences. In cases
+          where the trigram model performs worse than the bigram model (e.g.,
+          generating less coherent sentences), retraining the model on a larger
+          or more diverse corpus can help improve performance.
+        </p>
+
+        <p>
+          <strong
+            >After incorporating additional corpora, the trigram model produced
+            the following results:</strong
+          >
+        </p>
+        <blockquote>
+          "The patient exhibited symptoms of acute bronchitis and high fever."
+        </blockquote>
+        <p>
+          The trigram model provides even more context, resulting in sentences
+          that are generally more coherent than those produced by the bigram
+          model.
+        </p>
+        <p>
+          In general, as the <strong>N</strong> in
+          <strong>N-grams</strong> increases, the generated text becomes more
+          coherent because the model takes into account more context from
+          previous words. However, this increased complexity also introduces the
+          possibility of
+          <span class="tooltip"
+            >overfitting
+            <span class="tooltiptext"
+              >Overfitting occurs when the model becomes too specific to the
+              training corpus and struggles to generalize to unseen data.</span
+            ></span
+          >
+          to the training data, especially in smaller datasets.
+        </p>
+
+        <!-- Training Models -->
+        <p id="training">
+          It is important to note here is that we separate
+          <span id="important">training and test sets</span> while training
+          language models. It is essential that the <b>test set</b> remains
+          unseen during the training process. If the model is exposed to the
+          test sentences during training, it would learn the exact word
+          sequences and be able to predict them perfectly during evaluation.
+          This would lead to an artificially low <b>perplexity score</b>, giving
+          the false impression that the model is performing well.
+        </p>
+        <p>
+          The goal of machine learning models, especially in Natural Language
+          Processing (NLP), is to generalize to new, unseen data. Keeping the
+          test set separate from the training data ensures that the model's
+          performance is measured based on how well it predicts new sequences it
+          hasn’t encountered before.
+        </p>
+        <h4>Training and Test Set Example</h4>
+        <p>
+          For example, here I've splitted the 80% training set and 20% test set
+          from the original corpus:
+        </p>
+
+        <h5>Training Set:</h5>
+        <ul>
+          <li>"The patient was diagnosed with acute bronchitis."</li>
+          <li>"Symptoms include fever, cough, and shortness of breath."</li>
+          <li>"The prescribed treatment is a 5-day course of antibiotics."</li>
+        </ul>
+
+        <h5>Test Set:</h5>
+        <ul>
+          <li>"The patient should follow up in one week for evaluation."</li>
+          <li>"No allergic reactions to the medication were reported."</li>
+        </ul>
+
+        <p>
+          In the training phase, we build our unigram, bigram, and trigram
+          models using the training set. Then, when testing, we evaluate using
+          perplexity how well the model predicts the next word given the
+          previous words in the test set.
+        </p>
+
+        <h3 class="sub-title" id="perplexity">
+          Evaluating Language Models - Perplexity
+        </h3>
+        <p>
+          Now that we’ve generated random sentences using bigram and trigram
+          models based on the corpus, it’s time to evaluate their performance.
+          In simpler terms, we want to determine which probabilistic models
+          (unigram, bigram, or trigram) are better at predicting unseen data.
+          The better model is the one that assigns
+          <span id="important">higher probabilities</span> to the correct words
+          in the test data.
+        </p>
+        <p>Here's an example of how perplexity is calculated:</p>
+        <p class="latex_formular">
+          \(2^{-\frac{1}{N}} \sum \log_2 P(w_i \mid w_{i-1}, w_{i-2})\)
+        </p>
+        <h4>Perplexity Example with Bigrams</h4>
+        <p>
+          For example, to evaluate the bigram model, we calculate the
+          probability of the next word for a given context. For the test
+          sentence <i>"The patient should follow up..."</i>, we calculate:
+        </p>
+        <p><b>P(patient | The)</b> = 0.67</p>
+        <p><b>P(should | patient)</b> = 0.5</p>
+        <p><b>P(follow | should)</b> = 1.0</p>
+        <p>
+          We repeat this process for each word in the sentence, sum the log
+          probabilities, and then calculate the perplexity.
+        </p>
+
+        <p id="smoothing">
+          In one of my earlier examples, the trigram model had a higher
+          perplexity than the bigram model due to
+          <span class="tooltip"
+            >data sparsity
+            <span class="tooltiptext">
+              Data sparsity occurs when there is insufficient data to estimate
+              probabilities for all possible n-grams, especially higher-order
+              n-grams like trigrams, leading to unreliable predictions.
+            </span> </span
+          >. I learned that this occurred when my model had insufficient
+          training data to learn reliable trigram probabilities. To reduce the
+          trigram's perplexity, I used a larger dataset for training and applied
+          techniques such as <strong>smoothing</strong> (e.g.,
+          <em>Laplace Smoothing</em> or <em>Kneser-Ney Smoothing</em>).
+        </p>
+
+        <h3>Laplace Smoothing Formula</h3>
+        <p>
+          The formula for Laplace Smoothing is: \[ P(w_i | w_{i-1}, w_{i-2}) =
+          \frac{\text{Count}(w_{i-2}, w_{i-1}, w_i) + 1}{\text{Count}(w_{i-2},
+          w_{i-1}) + V} \] where \(V\) is the total number of unique words in
+          the vocabulary.
+        </p>
+
+        <h3>Kneser-Ney Smoothing Formula</h3>
+        <p>
+          The formula for Kneser-Ney Smoothing is: \[ P(w_i | w_{i-1}, w_{i-2})
+          = \max\left(\frac{\text{Count}(w_{i-2}, w_{i-1}, w_i) -
+          D}{\text{Count}(w_{i-2}, w_{i-1})}, 0\right) + \lambda(w_{i-1},
+          w_{i-2}) P_{\text{continuation}}(w_i) \] where \(D\) is a discount
+          factor, and \(\lambda(w_{i-1}, w_{i-2})\) adjusts for how likely the
+          context is, with the continuation probability estimating \(P(w_i)\)
+          based on the number of different contexts \(w_i\) has been seen in.
+        </p>
+
+        <h3>Code Example for Laplace Smoothing</h3>
+        <pre>
+        <code class="language-python">
+          from collections import defaultdict
+
+          def laplace_smoothing(trigram_counts, bigram_counts, vocab_size, word1, word2, word3):
+          count_trigram = trigram_counts.get((word1, word2, word3), 0)
+          count_bigram = bigram_counts.get((word1, word2), 0)
+          # Apply Laplace Smoothing
+          return (count_trigram + 1) / (count_bigram + vocab_size)
+
+          trigram_counts = {('the', 'patient', 'was'): 5}
+          bigram_counts = {('the', 'patient'): 10}
+          vocab_size = 1000
+          prob = laplace_smoothing(trigram_counts, bigram_counts, vocab_size, 'the', 'patient', 'was')
+        </code>
+      </pre>
+
+        <h3>Code Example for Kneser-Ney Smoothing</h3>
+        <pre>
+        <code class="language-python">
+          def kneser_ney_smoothing(trigram_counts, bigram_counts, continuation_counts, D, word1, word2, word3):
+          count_trigram = trigram_counts.get((word1, word2, word3), 0)
+          count_bigram = bigram_counts.get((word1, word2), 0)
+
+          # Discounted probability
+          if count_trigram > 0:
+          prob_trigram = max(count_trigram - D, 0) / count_bigram
+          else:
+          prob_trigram = 0
+
+          # Continuation probability (how often word3 follows other pairs)
+          prob_continuation = continuation_counts.get(word3, 0) / sum(continuation_counts.values())
+
+          # Lambda adjustment factor for backing off
+          lambda_factor = (D / count_bigram) if count_bigram > 0 else 0
+
+          # Final Kneser-Ney probability
+          return prob_trigram + lambda_factor * prob_continuation
+
+          trigram_counts = {('the', 'patient', 'was'): 5}
+          bigram_counts = {('the', 'patient'): 10}
+          continuation_counts = {'was': 20}
+          D = 0.75
+          prob = kneser_ney_smoothing(trigram_counts, bigram_counts, continuation_counts, D, 'the', 'patient', 'was')
+        </code>
+      </pre>
+        <h3 class="sub-title">Conclusion</h3>
+        <p>
+          In this post, we explored the basics of NLP, focusing on word
+          distributions through MLE, training and evaluating N-grams. We saw how
+          MLE can be used to generate sentences and how perplexity helps
+          evaluate the performance of language models and when to use smoothing
+          techniques to adjust perplexity accordingly. As we move forward, we’ll
+          explore more advanced topics like word embeddings and deep learning
+          models in NLP.
+        </p>
+      </section>
+      <hr />
+      <span id="important">References:</span>
+      <ul>
+        <li>
+          Speech and Language Processing by Daniel Jurafsky and James H. Martin
+        </li>
+        <li>Lecture slides</li>
+        <li>HW</li>
+        <li>Reflection</li>
+      </ul>
+    </article>
+    <script src="../../script.js" defer></script>
+  </body>
+</html>
