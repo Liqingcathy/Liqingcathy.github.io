@@ -45,26 +45,6 @@ const addClass = (domElement, elementClass, option) => {
   elementClassName1 = domElement.className.split(" ");
   elementClassName2 = elementClass.split(" ");
 
-  // if (option === "Climatebase".toLowerCase()) {
-  //   if (!paragraphAdded) {
-  //     textPara = document.createElement("div");
-  //     textPara.id = "climatebase-desc";
-  //     const text = `
-  //                   Thrived as a proactive developer, driving collaboration on projects encompassing MVP
-  //                   ideation & design using cutting-edge tools like FigJam and Figma, alongside dynamic
-  //                   web app development. Partnered with industry UX researchers, product managers, software engineers, and an SEO expert.
-
-  //                   `;
-  //     const node = document.createTextNode(text);
-  //     textPara.appendChild(node);
-  //     domElement.parentNode.insertBefore(
-  //       textPara,
-  //       domElement.parentNode.firstChild
-  //     );
-  //     paragraphAdded = true;
-  //   }
-  // }
-
   for (let i = 0; i < elementClassName2.length; i++) {
     if (elementClassName1.indexOf(elementClassName2[i]) == -1) {
       domElement.className += " " + elementClassName2[i];
@@ -117,3 +97,17 @@ function toggleVisibility(id) {
     content.style.display = "none";
   }
 }
+
+const handleClickBtn = () => {
+  window.location.href = "/nlp.html";
+};
+
+document.querySelectorAll(".resource-header").forEach((header) => {
+  header.addEventListener("click", () => {
+    const resource = header.parentElement;
+    const details = resource.querySelector(".resource-details");
+    details.style.display =
+      details.style.display === "block" ? "none" : "block";
+    resource.classList.toggle("expanded");
+  });
+});

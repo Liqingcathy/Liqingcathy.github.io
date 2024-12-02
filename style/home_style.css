@@ -45,7 +45,7 @@ nav {
 
 .profile-text p {
   padding-top: 6.5rem;
-  font-size: 6.6vw;
+  font-size: 5vw;
   font-weight: 700;
   font-style: italic;
   letter-spacing: -2.5px;
@@ -65,13 +65,35 @@ nav {
   color: gray;
 }
 
+.rotating-text {
+  display: inline-block;
+  animation: rotateText 6s infinite;
+}
+
+@keyframes rotateText {
+  0% {
+    content: "Software Engineering";
+  }
+  60% {
+    content: "Master in Computer Science @ UIUC";
+  }
+  100% {
+    content: "Continuous Learning";
+  }
+}
+
+.rotating-text:before {
+  content: "Software Engineering";
+  animation: rotateText 6s infinite;
+}
+
 section .various-skills {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 3px;
+  gap: 6px;
   margin: 3rem 3rem;
-  font-size: 1vw;
+  font-size: 1.2vw;
 }
 
 .various-skills button {
@@ -175,11 +197,11 @@ section .various-skills {
     font-size: 1.6vw;
   }
 
-footer .year {
-  text-wrap: nowrap;
-}
+  footer .year {
+    text-wrap: nowrap;
+  }
 
-/* 
+  /* 
   #climatebase-desc {
     display: none;
   } */

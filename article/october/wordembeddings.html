@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="/style/blog.css" rel="stylesheet" />
+  <link href="/style/home_style.css" rel="stylesheet" />
+  <link href="/style/style.css" rel="stylesheet" />
+  <link href="/style/posting.css" rel="stylesheet" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <title>Word Embeddings & Text Classification with Neural Networks</title>
+</head>
+
+<body>
+  <nav></nav>
+  <article>
+        <h2>Word Embeddings & Text Classification with Neural Networks</h2>
+    <section>
+      <p>
+        This note provides a structured guide for training text classifiers
+        using word embeddings and neural networks, especially focusing on
+        Continuous Bag-of-Words (CBOW) and dense embeddings. The aim is to
+        reference steps for preparing data, understanding training
+        processes, and making necessary adjustments to fully train a CBOW
+        model.
+      </p>
+    </section>
+    <section>
+      <h2>1. Word2Vec Paradigm</h2>
+      <p>
+        The <strong>Word2Vec</strong> approach is central in modern NLP. It
+        utilizes two main architectures: CBOW and Skip-gram. CBOW predicts a
+        word given its surrounding context, while Skip-gram predicts
+        surrounding words based on a central word. This post focuses on the
+        CBOW model, leveraging dense embeddings.
+      </p>
+    </section>
+    <section>
+      <p>
+        Every modern NLP algorithm uses embeddings as the representation of word meaning. A word's
+        <span id="important">feature</span> is captured in a word vector, which is a numerical representation of the
+        word.
+        These vectors start with 0-based weights and evolve during training.
+        <span class="underline">Two words are considered similar in meaning if their context vectors are similar.</span>
+        To measure similarity, the <strong>dot product</strong> is often used. The dot product calculates the degree of
+        alignment
+        between two vectors. A higher dot product indicates stronger similarity between the two vectors.
+      </p>
+
+      <p>
+        dot product(v, w) = v · w = Σ<sub>i=1</sub><sup>N</sup> v<sub>i</sub>w<sub>i</sub> = v<sub>1</sub>w<sub>1</sub>
+        + v<sub>2</sub>w<sub>2</sub> + ... + v<sub>N</sub>w<sub>N</sub>
+      </p>
+
+      <p>
+        To transform the dot product into a probability, we apply the <strong>sigmoid function</strong>. This function
+        maps the result
+        to a range between 0 and 1, enabling probabilistic interpretations.
+      </p>
+
+      <p>
+        sigmoid(x) = 1 / (1 + e<sup>-x</sup>)
+      </p>
+      <p>
+        This function ensures that large positive values of x are mapped close to 1, and large negative values are
+        mapped close to 0.
+        It is commonly used in binary classification tasks to predict probabilities.
+      </p>
+      <p>
+        While effective, the dot product has a known limitation: it <strong>overly favors frequent words</strong>. Words
+        with higher frequencies tend to have embeddings with larger <span class="tooltip">magnitudes <span
+            class="tooltiptext">Magnitudes represent the length or size of a vector, calculated as the square root of
+            the sum of its squared components, and are crucial for normalizing vectors in metrics like cosine
+            similarity.</span> </span>, resulting in higher dot product values even if the
+        vectors are not
+        directionally similar. This bias can misrepresent the true semantic similarity between words.
+      </p>
+      <p>
+        To address this, we normalize the vectors, resulting in <span id="important">cosine similarity</span> which
+        removes the influence of vector magnitude and focuses on their directional alignment. The formula for cosine
+        similarity is:
+      </p>
+      <p>
+        cosine similarity(a, b) = (a · b) / (|a| |b|) = Σ<sub>i=1</sub><sup>N</sup> (v<sub>i</sub>w<sub>i</sub>) /
+        (√Σ<sub>i=1</sub><sup>N</sup> v<sub>i</sub><sup>2</sup> √Σ<sub>i=1</sub><sup>N</sup> w<sub>i</sub><sup>2</sup>)
+      </p>
+      <p>
+        By dividing the raw dot product by the product of magnitudes, cosine similarity ensures a fair comparison by
+        focusing
+        on the angle between vectors. It ranges from -1 (opposite directions) to 1 (same direction), with 0 indicating
+        no similarity.
+        This adjustment eliminates the bias of vector size, making it a more reliable metric for evaluating word
+        similarities in NLP tasks.
+      </p>
+      <p>TOADD: example cherry/information/digital</p>
+      <p>
+        <span class="underline">Dense embeddings</span> map words to high-dimensional continuous vectors, capturing
+        syntactic and semantic relationships.
+        These embeddings improve text classification tasks by providing contextually relevant features, which are more
+        informative than
+        traditional bag-of-words approaches.
+      </p>
+    </section>
+    <section>
+      <h3>Preconditions for Data Preprocessing</h3>
+      <ul>
+        <li>Sentence splitting</li>
+        <li>
+          Adding sentence markers (<code>&lt;s&gt;</code> and
+          <code>&lt;/s&gt;</code>) for sentence boundaries
+        </li>
+        <li>Replacing unknown words with <code>&lt;UNK&gt;</code></li>
+        <pre><code>
+            # Constants for CBOW model
+            CBOW_START = "&lt;s&gt;"
+            CBOW_END = "&lt;/s&gt;"
+            CBOW_UNK = "&lt;UNK&gt;"
+
+            def cbow_preprocess(data, vocab=None, do_lowercase=True):
+            ...
+          </code></pre>
+      </ul>
+      <p>
+        These steps ensure that the model has standardized inputs and can
+        handle out-of-vocabulary words effectively.
+      </p>
+    </section>
+    <section>
+      <h2>3. Creating Training Examples</h2>
+      <p>
+        The CBOW dataset contains context-target pairs where each example has
+        a list of context words and a target word.
+      </p>
+      <ul>
+        <li>
+          <strong>Example</strong>: For the sentence
+          <em>"the man walks the dog in the park"</em> with context size = 1,
+          the pairs would look like:
+        </li>
+      </ul>
+      <pre><code>
+          # Sample (context, target) pairs
+          (context, target) (['&lt;s&gt;', 'man'], 'the')
+          (context, target) (['the', 'walks'], 'man')
+          (context, target) (['man', 'the'], 'walks')
+          ...
+        </code></pre>
+    </section>
+
+    <section>
+      <h2>4. Define and Train Continuous-Bag-of-Words (CBOW) Model</h2>
+      <p>Training a Continuous Bag of Words (CBOW) model involves learning dense word embeddings by predicting a target
+        word based on its surrounding context words. The CBOW model operates with three key components: an embedding
+        layer, a hidden layer, and an output layer. During training, the context words are passed through the embedding
+        layer, which converts them into dense vector representations. These embeddings are then averaged to create a
+        single vector that captures the contextual information. This averaged context vector is passed through a linear
+        transformation in the hidden layer and projected onto the output layer, where a softmax function predicts the
+        probability distribution over the vocabulary.
+        <br />The target word is compared against this predicted distribution
+        using a <span id="important">loss function</span>, such as cross-entropy loss, to calculate the error. <span
+          id="important">Backpropagation</span> is employed to adjust
+        the model's weights, iteratively minimizing the loss and <span id="important">refining</span> the embeddings.
+        The CBOW model excels at
+        capturing word semantics, as the embeddings it learns encode both syntactic and semantic relationships, making
+        it a foundational approach in natural language processing tasks.
+      </p>
+    </section>
+    <section>
+      <ul>
+        <li>
+          <strong>Loss Calculation</strong>: Cross-Entropy Loss compares model
+          predictions with the true labels.
+        </li>
+        <li>
+          <strong>Backpropagation</strong>: Computes gradients for each
+          parameter to guide updates.
+        </li>
+        <li>
+          <strong>Weight Update</strong>: The optimizer (Adam) uses gradients
+          to adjust weights, gradually minimizing loss over epochs.
+        </li>
+      </ul>
+      <h4>Code for Training</h4>
+      <pre>
+        <code class="language-python">
+          from tqdm.notebook import tqdm
+          from torch import optim
+          import torch.optim as optim
+
+          BATCH_SIZE = 10
+          CONTEXT_SIZE = 1
+
+          if __name__=='__main__':
+          cbow_dataset = CbowDataset(sentences, vocab, CONTEXT_SIZE)
+          cbow_dataloader = torch.utils.data.DataLoader(cbow_dataset, batch_size=BATCH_SIZE, shuffle=False,
+          num_workers=2, drop_last=True)
+
+          def train_cbow_model(model, num_epochs, data_loader, optimizer, criterion):
+          print("Training CBOW model....")
+          for epoch in range(num_epochs):
+          epoch_loss, n = 0, 0
+          for context, target in tqdm(data_loader):
+          optimizer.zero_grad()
+          log_probs = model(context.long().to(DEVICE)) # to(torch.float32)
+          # Computes the loss by comparing model predictions (log_probs) with the target word.
+          loss = criterion(log_probs, target.to(DEVICE))
+          loss.backward()
+          optimizer.step()
+          n += context.shape[0]
+          epoch_loss += (loss*context.shape[0])
+          epoch_loss = epoch_loss/n
+          print('[TRAIN]\t Epoch: {:2d}\t Loss: {:.4f}'.format(epoch+1, epoch_loss))
+          print('CBOW Model Trained!\n')
+        </code>
+      </pre>
+      <pre>
+        <code class="language-python">
+          if __name__=='__main__':
+          cbow_model = CbowModel(vocab_size = cbow_dataset.vocab_size,
+          embed_size = 128,
+          hidden_size = 128,
+          context_size = CONTEXT_SIZE
+          cbow_model = cbow_model.to(DEVICE)
+
+          print('The model has {:,d} trainable parameters'.format(count_parameters(cbow_model))
+          #The model has 7,438,415 trainable parameters
+
+          LEARNING_RATE = 0.01
+          criterion = nn.CrossEntropyLoss().to(DEVICE)
+          optimizer = optim.Adam(cbow_model.parameters(), lr=LEARNING_RATE)
+          train_cbow_model(cbow_model, N_EPOCHS, cbow_dataloader, optimizer, criterion)
+        </code>
+      </pre>
+      <p>
+        the Continuous Bag-of-Words (CBOW) model, a neural network designed to predict a target word based on
+        surrounding context words. It iteratively updates the model over multiple <span class="tooltip">epochs,<span
+            class="tooltiptext">
+            a single pass through the entire training dataset
+          </span></span> refining its ability to make
+        accurate predictions. Each training cycle, or epoch, involves <span id="important">feeding the model batches of
+          context-target pairs
+          from the data_loader and adjusting the model parameters to minimize prediction errors.</span>
+      </p>
+      <p>
+        At the start of each batch, <code>optimizer.zero_grad()</code> is called to reset any previously stored
+        gradients. This is
+        essential because gradients accumulate by default in PyTorch, which would otherwise
+        cause incorrect parameter
+        updates due to the accumulation from previous batches. Once the gradients are reset, the model performs a
+        <span id="important">forward pass by computing predictions, known as log_probs, using the context words provided
+          in each batch.</span> This
+        forward pass produces a probability distribution over possible target words in the vocabulary.
+      </p>
+      <p>
+        Next, the function calculates the <span class="tooltip">loss <span class="tooltiptext">Loss refers to the
+            calculated error between a model's predictions and the true values</span></span> using
+        <code>criterion(log_probs,
+          target.to(DEVICE))</code>. Here, the <span class="tooltip">criterion
+          function (often CrossEntropyLoss)</span> measures how well the model’s predictions (log_probs) align with the
+        true
+        target word. If the predictions deviate significantly from the actual target, the loss will be higher,
+        indicating poor model performance. The model aims to minimize this loss, so lower values signal more accurate
+        predictions.
+      </p>
+      <p>
+        Once the loss is computed, <code>loss.backward()</code> is called to execute backpropagation. This crucial step
+        calculates
+        the gradient of the loss with respect to each parameter (weight) in the model. <span id="important">Gradients
+          essentially measure how
+          much each parameter contributes to the overall loss.</span> Large gradients indicate parameters that
+        significantly
+        impact the loss, while smaller gradients show less influence. <span class="underline">PyTorch automatically
+          stores
+          these gradients in
+          each parameter’s <code>.grad</code> attribute, and these values are used to update the parameters in the
+          direction that
+          minimizes the loss.</span> If a particular gradient is positive, it means increasing that parameter would
+        increase the
+        loss, so the parameter should be reduced. Conversely, if the gradient is negative, the parameter should be
+        increased to decrease the loss.
+      </p>
+      <p>
+        Following backpropagation, <code>optimizer.step()</code> adjusts the model’s weights based on the gradients
+        computed during
+        <code>loss.backward().</code> This process, often called <span id="important">gradient descent,</span> is
+        controlled by a specified learning rate, which
+        determines the <span id="important">step size</span> for each update. A small learning rate results in more
+        gradual adjustments, leading to
+        stable but slow learning, while a larger learning rate speeds up training but risks overshooting optimal values.
+        <span id="important" class="underline">During this step, each parameter is updated by subtracting the product of
+          its gradient and the learning rate,
+          effectively moving the model in a direction that minimizes the loss.</span>
+      </p>
+      <p>
+        Lastly, after processing all batches in an epoch, the function computes the average loss for the epoch, giving
+        insight into how the model’s performance has improved over time. This iterative process is repeated over the
+        specified number of epochs, gradually refining the model's parameters and improving its ability to predict the
+        target word based on context.
+      </p>
+    </section>
+    <section>
+      <h3>Example of Word Embedding 2D Visualization</h2>
+        <img id="word2d" src="../../assets/projects/newplot.png" />
+        <p class="image-caption">
+          The word embeddings are basically the weight matrix of the embedding layer that we defined, as this maps each
+          index of our vocab to a dense vector of size embed_size.
+        </p>
+      </h3>
+    </section>
+    <section>
+      <p>In summary, training a CBOW model requires:</p>
+      <ol>
+        <li>
+          <strong>Data Preparation</strong>: Preprocess sentences with markers
+          and unknown tokens.
+        </li>
+        <li>
+          <strong>Model Architecture</strong>: Build the CBOW model with
+          embedding and hidden layers.
+        </li>
+        <li>
+          <strong>Training</strong>: Calculate loss, backpropagate to compute
+          gradients, and update weights iteratively.
+        </li>
+      </ol>
+      <p>
+        This step-by-step training approach ensures that the CBOW model
+        effectively learns to predict words based on their context, improving
+        its ability to generate meaningful word embeddings.
+      </p>
+    </section>
+  </article>
+</body>
+<script src="../../script.js" defer></script>
+
+</html>
